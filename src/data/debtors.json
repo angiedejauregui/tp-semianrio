@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Juan Pérez",
+    "amount": 1500.5,
+    "phone": "+541112345678",
+    "reason": "Cuota impaga"
+  },
+  {
+    "id": 2,
+    "name": "María García",
+    "amount": 250.0,
+    "phone": "+541198765432",
+    "reason": "Pago atrasado"
+  },
+  {
+    "id": 3,
+    "name": "Carlos López",
+    "amount": 980,
+    "phone": "+541187654321",
+    "reason": "Intereses"
+  }
+]
