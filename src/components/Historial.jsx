@@ -1,4 +1,3 @@
-import React from "react";
 import { getCurrentUserData } from "../data/userData";
 
 const Historial = () => {

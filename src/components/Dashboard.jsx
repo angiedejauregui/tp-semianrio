@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { getCurrentUserData, updateUserData, currentUser } from "../data/userData";
+import { useState } from "react";
+import { currentUser, getCurrentUserData, updateUserData } from "../data/userData";
 
 const Dashboard = () => {
   const userInfo = getCurrentUserData();

@@ -1,79 +1,53 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Dashboard from "./components/Dashboard";
 import Historial from "./components/Historial";
+import InicioSesion from "./components/InicioSesion";
+import Registro from "./components/Registro";
 
 function App() {
   const [currentView, setCurrentView] = useState("dashboard");
+  const [authMode, setAuthMode] = useState("login"); // "login" o "register"
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => setIsLoggedIn(true);
+  const handleRegister = () => setAuthMode("login"); // después de registrarse, ir a login
+
+  if (!isLoggedIn) {
+    if (authMode === "register") {
+      return <Registro onRegister={handleRegister} />;
+    }
+    // Pantalla inicial: solo login, con link a registro
+    return <InicioSesion onLogin={handleLogin} onGoToRegister={() => setAuthMode("register")} />;
+  }
 
   return (
     <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
       {/* Sidebar */}
-      <div
-        style={{
-          width: "200px",
-          background: "#333",
-          color: "#fff",
-          padding: "20px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ 
-          textAlign: "center", 
-          marginBottom: "20px",
-          paddingBottom: "15px",
-          borderBottom: "1px solid #555"
-        }}>
-          <h2 style={{ 
-            margin: "0", 
-            fontSize: "16px", 
-            fontWeight: "bold"
-          }}>
-            Estudio Palmero
-          </h2>
-        </div>
-
+      <div style={{ width: "200px", background: "#333", color: "#fff", padding: "20px" }}>
+        <h2 style={{ textAlign: "center" }}>Estudio Palmero</h2>
         <h3>Menú</h3>
-        <div
-          style={{ 
-            margin: "10px 0", 
-            cursor: "pointer",
-            padding: "8px 10px",
-            backgroundColor: currentView === "dashboard" ? "#555" : "transparent",
-            borderRadius: "4px",
-            fontWeight: currentView === "dashboard" ? "bold" : "normal"
-          }}
-          onClick={() => setCurrentView("dashboard")}
-        >
-          Dashboard
-        </div>
-        <div
-          style={{ 
-            margin: "10px 0", 
-            cursor: "pointer",
-            padding: "8px 10px",
-            backgroundColor: currentView === "historial" ? "#555" : "transparent",
-            borderRadius: "4px",
-            fontWeight: currentView === "historial" ? "bold" : "normal"
-          }}
-          onClick={() => setCurrentView("historial")}
-        >
-          Historial
-        </div>
-        <div
-          style={{ margin: "10px 0", cursor: "pointer", padding: "8px 10px" }}
-          onClick={() => alert("Salir")}
-        >
-          Salir
-        </div>
+        <div onClick={() => setCurrentView("dashboard")}>Dashboard</div>
+        <div onClick={() => setCurrentView("historial")}>Historial</div>
+        <div onClick={() => {
+          localStorage.removeItem("userData");
+          setIsLoggedIn(false);
+          setAuthMode("select");
+        }}>Salir</div>
       </div>
 
-
-      <div style={{ flex: 1, padding: "20px", overflowY: "auto" }}>
+      <div style={{ flex: 1, padding: "20px" }}>
         {currentView === "dashboard" && <Dashboard />}
         {currentView === "historial" && <Historial />}
       </div>
     </div>
   );
 }
+
+const btn = {
+  margin: "10px",
+  padding: "10px 20px",
+  fontSize: "16px",
+  cursor: "pointer"
+};
 
 export default App;
