@@ -1,35 +1,55 @@
 import React, { useState } from "react";
-
-const goals = {
-  dailyCalls: 20,
-  agreements: 5,
-};
+import { getCurrentUserData, updateUserData, currentUser } from "../data/userData";
 
 const Dashboard = () => {
-  const [calls, setCalls] = useState(0);
-  const [agreements, setAgreements] = useState(0);
-  const [totalCalls, setTotalCalls] = useState(0);
-  const [totalAgreements, setTotalAgreements] = useState(0);
-  const [answeredCalls, setAnsweredCalls] = useState(0);
-  const [callDurations, setCallDurations] = useState([]);
+  const userInfo = getCurrentUserData();
+  const [calls, setCalls] = useState(userInfo.currentDay.calls);
+  const [agreements, setAgreements] = useState(userInfo.currentDay.agreements);
+  const [totalCalls, setTotalCalls] = useState(userInfo.currentDay.totalCalls);
+  const [totalAgreements, setTotalAgreements] = useState(userInfo.currentDay.totalAgreements);
+  const [answeredCalls, setAnsweredCalls] = useState(userInfo.currentDay.answeredCalls);
+  const [callDurations, setCallDurations] = useState(userInfo.currentDay.callDurations);
 
   const simulateCall = () => {
     const wasAnswered = Math.random() < 0.7; // 70% chance de que contesten
-    const duration = wasAnswered ? Math.random() * 5 + 1 : 0; // entre 1 y 6 minutos si contestaron
+    const duration = wasAnswered ? Math.random() * 10 + 20 : 0; // entre 20 y 30 minutos si contestaron
     const closedAgreement = wasAnswered && Math.random() < 0.3; // 30% chance de cerrar acuerdo
 
-    setCalls((prev) => prev + 1);
-    setTotalCalls((prev) => prev + 1);
+    const newCalls = calls + 1;
+    const newTotalCalls = totalCalls + 1;
+    let newAgreements = agreements;
+    let newTotalAgreements = totalAgreements;
+    let newAnsweredCalls = answeredCalls;
+    let newCallDurations = [...callDurations];
+
+    setCalls(newCalls);
+    setTotalCalls(newTotalCalls);
 
     if (wasAnswered) {
-      setAnsweredCalls((prev) => prev + 1);
-      setCallDurations((prev) => [...prev, duration]);
+      newAnsweredCalls = answeredCalls + 1;
+      setAnsweredCalls(newAnsweredCalls);
+      newCallDurations = [...callDurations, duration];
+      setCallDurations(newCallDurations);
     }
 
     if (closedAgreement) {
-      setAgreements((prev) => prev + 1);
-      setTotalAgreements((prev) => prev + 1);
+      newAgreements = agreements + 1;
+      newTotalAgreements = totalAgreements + 1;
+      setAgreements(newAgreements);
+      setTotalAgreements(newTotalAgreements);
     }
+
+    // Actualizar datos del usuario
+    updateUserData(currentUser, {
+      currentDay: {
+        calls: newCalls,
+        agreements: newAgreements,
+        totalCalls: newTotalCalls,
+        totalAgreements: newTotalAgreements,
+        answeredCalls: newAnsweredCalls,
+        callDurations: newCallDurations,
+      }
+    });
   };
 
   const answeredRate =
@@ -44,14 +64,15 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Resumen de Actividad</h2>
+      <h2>Dashboard - {userInfo.name}</h2>
+      <p style={{ color: "#666", fontSize: "14px" }}>{userInfo.email}</p>
       <h3>Métricas de Hoy</h3>
       <ul>
         <li>
-          Llamadas realizadas: {calls}/{goals.dailyCalls}
+          Llamadas realizadas: {calls}/{userInfo.goals.dailyCalls}
         </li>
         <li>
-          Acuerdos logrados: {agreements}/{goals.agreements}
+          Acuerdos logrados: {agreements}/{userInfo.goals.agreements}
         </li>
       </ul>
       <h3>Métricas Totales</h3>
