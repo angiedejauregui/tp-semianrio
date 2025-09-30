@@ -1,0 +1,166 @@
+/* Container simple */
+.inicio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Caja principal elevada */
+.inicio-box {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.1),
+    0 2px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Header simple */
+.inicio-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* Título */
+.inicio-title {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+.inicio-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Formulario */
+.inicio-form {
+  margin-bottom: 24px;
+}
+
+.inicio-form-group {
+  margin-bottom: 20px;
+}
+
+.inicio-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Inputs simples */
+.inicio-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.inicio-input:focus {
+  border-color: #007bff;
+}
+
+/* Mantener el borde azul cuando el input tiene contenido */
+.inicio-input:not(:placeholder-shown) {
+  border-color: #007bff;
+}
+
+/* Mensaje de error simple */
+.inicio-error {
+  padding: 10px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.inicio-error-text {
+  margin: 0;
+  font-size: 14px;
+  color: #c62828;
+}
+
+/* Botón simple y sólido */
+.inicio-button {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.inicio-button:hover {
+  background-color: #0056b3;
+}
+
+.inicio-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Divisor simple */
+.inicio-divider {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.inicio-divider-line {
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.inicio-divider-text {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Sección de registro simple */
+.inicio-register {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.inicio-register-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.inicio-register-button:hover {
+  color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .inicio-box {
+    padding: 20px;
+  }
+  
+  .inicio-title {
+    font-size: 24px;
+  }
+}
