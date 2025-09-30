@@ -24,8 +24,10 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
     try {
       const res = await axios.post('http://localhost:5000/api/users/login', form);
       localStorage.setItem('userData', JSON.stringify(res.data.user));
-      toast.success('Inicio de sesión exitoso');
       onLogin();
+      setTimeout(() => {
+        toast.success('Inicio de sesión exitoso');
+      }, 300);
     } catch (err) {
       setError(err.response?.data?.error || 'Error al iniciar sesión');
     }
