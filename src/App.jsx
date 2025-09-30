@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard";
 import Historial from "./components/Historial";
 import InicioSesion from "./components/InicioSesion";
 import Registro from "./components/Registro";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [currentView, setCurrentView] = useState("dashboard");
@@ -12,29 +13,26 @@ function App() {
   const handleLogin = () => setIsLoggedIn(true);
   const handleRegister = () => setAuthMode("login"); // después de registrarse, ir a login
 
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    setIsLoggedIn(false);
+    setAuthMode("login");
+  };
+
   if (!isLoggedIn) {
     if (authMode === "register") {
       return <Registro onRegister={handleRegister} />;
     }
-    // Pantalla inicial: solo login, con link a registro
     return <InicioSesion onLogin={handleLogin} onGoToRegister={() => setAuthMode("register")} />;
   }
 
   return (
     <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
-      {/* Sidebar */}
-      <div style={{ width: "200px", background: "#333", color: "#fff", padding: "20px" }}>
-        <h2 style={{ textAlign: "center" }}>Estudio Palmero</h2>
-        <h3>Menú</h3>
-        <div onClick={() => setCurrentView("dashboard")}>Dashboard</div>
-        <div onClick={() => setCurrentView("historial")}>Historial</div>
-        <div onClick={() => {
-          localStorage.removeItem("userData");
-          setIsLoggedIn(false);
-          setAuthMode("select");
-        }}>Salir</div>
-      </div>
-
+      <Sidebar 
+        currentView={currentView} 
+        setCurrentView={setCurrentView} 
+        onLogout={handleLogout} 
+      />
       <div style={{ flex: 1, padding: "20px" }}>
         {currentView === "dashboard" && <Dashboard />}
         {currentView === "historial" && <Historial />}
@@ -42,12 +40,5 @@ function App() {
     </div>
   );
 }
-
-const btn = {
-  margin: "10px",
-  padding: "10px 20px",
-  fontSize: "16px",
-  cursor: "pointer"
-};
 
 export default App;
