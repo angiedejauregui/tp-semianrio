@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import './InicioSesion.css'; // Reutilizamos los mismos estilos
 
 const Registro = ({ onRegister }) => {
@@ -20,9 +21,26 @@ const Registro = ({ onRegister }) => {
     e.preventDefault();
     setError('');
 
+    if (!form.nombre.trim() || !form.apellido.trim() || !form.email.trim() || !form.contrasena.trim()) {
+      toast.error('Por favor complete todos los campos');
+      return;
+    }
+
     try {
       await axios.post('http://localhost:5000/api/users/register', form);
-      onRegister(); // Avanza al login
+    
+      setForm({
+        nombre: '',
+        apellido: '',
+        email: '',
+        contrasena: ''
+      });
+      
+      toast.success('¡Registro exitoso! Ahora puede iniciar sesión');
+      
+      setTimeout(() => {
+        onRegister(); // Avanza al login
+      }, 1500);
     } catch (err) {
       setError(err.response?.data?.error || 'Error al registrarse');
     }
@@ -45,7 +63,6 @@ const Registro = ({ onRegister }) => {
               placeholder="Ingrese su nombre"
               value={form.nombre}
               onChange={handleChange}
-              required
               className="inicio-input"
             />
           </div>
@@ -58,7 +75,6 @@ const Registro = ({ onRegister }) => {
               placeholder="Ingrese su apellido"
               value={form.apellido}
               onChange={handleChange}
-              required
               className="inicio-input"
             />
           </div>
@@ -71,7 +87,6 @@ const Registro = ({ onRegister }) => {
               placeholder="Ingrese su email"
               value={form.email}
               onChange={handleChange}
-              required
               className="inicio-input"
             />
           </div>
@@ -84,7 +99,6 @@ const Registro = ({ onRegister }) => {
               placeholder="Ingrese su contraseña"
               value={form.contrasena}
               onChange={handleChange}
-              required
               className="inicio-input"
             />
           </div>
