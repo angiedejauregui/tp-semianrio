@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ToastContainer } from 'react-toastify';
 import Dashboard from "./components/Dashboard";
 import Historial from "./components/Historial";
 import InicioSesion from "./components/InicioSesion";
@@ -21,25 +22,28 @@ function App() {
   }
 
   return (
-    <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
-      {/* Sidebar */}
-      <div style={{ width: "200px", background: "#333", color: "#fff", padding: "20px" }}>
-        <h2 style={{ textAlign: "center" }}>Estudio Palmero</h2>
-        <h3>Menú</h3>
-        <div onClick={() => setCurrentView("dashboard")}>Dashboard</div>
-        <div onClick={() => setCurrentView("historial")}>Historial</div>
-        <div onClick={() => {
-          localStorage.removeItem("userData");
-          setIsLoggedIn(false);
-          setAuthMode("select");
-        }}>Salir</div>
-      </div>
+    <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
+      <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
+        {/* Sidebar */}
+        <div style={{ width: "200px", background: "#333", color: "#fff", padding: "20px" }}>
+          <h2 style={{ textAlign: "center" }}>Estudio Palmero</h2>
+          <h3>Menú</h3>
+          <div onClick={() => setCurrentView("dashboard")}>Dashboard</div>
+          <div onClick={() => setCurrentView("historial")}>Historial</div>
+          <div onClick={() => {
+            localStorage.removeItem("userData");
+            setIsLoggedIn(false);
+            setAuthMode("select");
+          }}>Salir</div>
+        </div>
 
-      <div style={{ flex: 1, padding: "20px" }}>
-        {currentView === "dashboard" && <Dashboard />}
-        {currentView === "historial" && <Historial />}
+        <div style={{ flex: 1, padding: "20px" }}>
+          {currentView === "dashboard" && <Dashboard />}
+          {currentView === "historial" && <Historial />}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
