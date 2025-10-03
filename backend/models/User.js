@@ -32,8 +32,15 @@ const userSchema = new mongoose.Schema({
         semana: Number,
         llamadas: Number,
         acuerdos: Number,
-        contestadas: Number,
-        duracionPromedio: Number
+        dias: [
+          {
+            dia: String, // 'Lunes', 'Martes', ...
+            llamadas: Number,
+            contestadas: Number,
+            acuerdos: Number,
+            duracion: Number
+          }
+        ]
       }
     ]
   }

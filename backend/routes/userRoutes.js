@@ -43,10 +43,15 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, contrasena } = req.body;
+  console.log('Login intento:', { email, contrasena });
   try {
     const user = await User.findOne({ email });
+    console.log('Usuario encontrado:', user);
     if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
-    if (user.contrasena !== contrasena) return res.status(401).json({ error: 'Contraseña incorrecta' });
+    if (user.contrasena !== contrasena) {
+      console.log('Contraseña recibida:', contrasena, 'Contraseña en DB:', user.contrasena);
+      return res.status(401).json({ error: 'Contraseña incorrecta' });
+    }
     // Asegurarse que el campo historical esté presente
     if (!user.historical) {
       user.historical = {

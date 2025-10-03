@@ -22,12 +22,24 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
     }
 
     try {
+      localStorage.removeItem('userData');
       const res = await axios.post('http://localhost:5000/api/users/login', form);
-      localStorage.setItem('userData', JSON.stringify(res.data.user));
-      onLogin();
-      toast.success('Inicio de sesión exitoso');
+      // Si la respuesta es 200 pero no hay usuario, es error
+      if (res.status === 200 && res.data && res.data.user && !res.data.error) {
+        localStorage.setItem('userData', JSON.stringify(res.data.user));
+        onLogin();
+        setTimeout(() => {
+          toast.success('Inicio de sesión exitoso');
+        }, 300);
+      } else {
+        localStorage.removeItem('userData');
+        setError(res.data.error || 'Credenciales incorrectas');
+        toast.error(res.data.error || 'Credenciales incorrectas');
+      }
     } catch (err) {
-      setError(err.response?.data?.error || 'Error al iniciar sesión');
+      localStorage.removeItem('userData');
+      setError(err.response?.data?.error || 'Credenciales incorrectas');
+      toast.error(err.response?.data?.error || 'Credenciales incorrectas');
     }
   };
 

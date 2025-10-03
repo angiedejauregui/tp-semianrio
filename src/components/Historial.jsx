@@ -1,46 +1,23 @@
-import { useState } from "react";
-import { getCurrentUserData } from "../data/userData";
+import { useEffect, useState } from "react";
 
 const Historial = () => {
   const [showSemanas, setShowSemanas] = useState(false);
   const [semanaSeleccionada, setSemanaSeleccionada] = useState(null);
 
-  const userInfo = getCurrentUserData();
-  const { historical = {}, goals = {} } = userInfo;
-  const { lastDay, historicalByWeek = [] } = historical;
-  // Usar los datos fijos por semana para la tabla, como antes
-  const tablaPorSemana = [
-    [
-      { dia: 'Lunes', llamadas: 6, acuerdos: 2, contestadas: 4, duracion: 22.1 },
-      { dia: 'Martes', llamadas: 7, acuerdos: 1, contestadas: 5, duracion: 21.5 },
-      { dia: 'Miércoles', llamadas: 5, acuerdos: 2, contestadas: 3, duracion: 23.0 },
-      { dia: 'Jueves', llamadas: 6, acuerdos: 1, contestadas: 4, duracion: 22.8 },
-      { dia: 'Viernes', llamadas: 6, acuerdos: 1, contestadas: 4, duracion: 23.2 }
-    ],
-    [
-      { dia: 'Lunes', llamadas: 5, acuerdos: 1, contestadas: 3, duracion: 20.1 },
-      { dia: 'Martes', llamadas: 6, acuerdos: 2, contestadas: 4, duracion: 19.8 },
-      { dia: 'Miércoles', llamadas: 5, acuerdos: 1, contestadas: 3, duracion: 20.5 },
-      { dia: 'Jueves', llamadas: 4, acuerdos: 1, contestadas: 2, duracion: 20.0 },
-      { dia: 'Viernes', llamadas: 5, acuerdos: 1, contestadas: 3, duracion: 20.2 }
-    ],
-    [
-      { dia: 'Lunes', llamadas: 6, acuerdos: 2, contestadas: 4, duracion: 24.1 },
-      { dia: 'Martes', llamadas: 7, acuerdos: 1, contestadas: 5, duracion: 24.5 },
-      { dia: 'Miércoles', llamadas: 5, acuerdos: 2, contestadas: 3, duracion: 24.0 },
-      { dia: 'Jueves', llamadas: 6, acuerdos: 1, contestadas: 4, duracion: 24.8 },
-      { dia: 'Viernes', llamadas: 4, acuerdos: 0, contestadas: 2, duracion: 23.2 }
-    ],
-    [
-      { dia: 'Lunes', llamadas: 7, acuerdos: 2, contestadas: 5, duracion: 23.1 },
-      { dia: 'Martes', llamadas: 8, acuerdos: 2, contestadas: 6, duracion: 23.5 },
-      { dia: 'Miércoles', llamadas: 6, acuerdos: 2, contestadas: 4, duracion: 23.0 },
-      { dia: 'Jueves', llamadas: 6, acuerdos: 1, contestadas: 4, duracion: 23.8 },
-      { dia: 'Viernes', llamadas: 5, acuerdos: 1, contestadas: 3, duracion: 23.2 }
-    ]
-  ];
+  const [userInfo, setUserInfo] = useState({});
+  useEffect(() => {
+    const storedUser = localStorage.getItem('userData');
+    if (storedUser) {
+      setUserInfo(JSON.parse(storedUser));
+    }
+  }, []);
+  const { historical = {} } = userInfo || {};
+  const { lastDay, historicalByWeek = [], goalsByWeek = [] } = historical || {};
+  // Usar los datos reales por semana del usuario
   const semanaData = semanaSeleccionada !== null ? historicalByWeek[semanaSeleccionada] : null;
-  const tablaSemana = semanaSeleccionada !== null ? tablaPorSemana[semanaSeleccionada] : [];
+  const metaSemana = semanaData ? goalsByWeek.find(g => g.semana === semanaData.semana) : null;
+  // Si el usuario tiene datos diarios por semana, usarlos para la tabla
+  const tablaSemana = semanaData && semanaData.dias ? semanaData.dias : [];
 
   const answeredRate =
     lastDay && lastDay.calls > 0
@@ -54,7 +31,7 @@ const Historial = () => {
 
   return (
     <div>
-      <h2>Historial - {userInfo.nombre || userInfo.name || ""}</h2>
+  <h2>Historial - {userInfo.nombre} {userInfo.apellido}</h2>
       <p style={{ color: "#666", fontSize: "14px" }}>{userInfo.email}</p>
 
       <div style={{ display: "flex", justifyContent: "center", margin: "30px 0" }}>
@@ -94,10 +71,10 @@ const Historial = () => {
           <h3>Métricas de la Semana {semanaData.semana}</h3>
           <ul>
             <li>
-              Llamadas realizadas semanal: {semanaData.llamadas} / Meta: {goals.dailyCalls * 5}
+              Llamadas realizadas semanal: {semanaData.llamadas} / Meta: {metaSemana?.dailyCalls ?? '-'}
             </li>
             <li>
-              Acuerdos logrados semanal: {semanaData.acuerdos} / Meta: {goals.dailyAgreements * 5}
+              Acuerdos logrados semanal: {semanaData.acuerdos} / Meta: {metaSemana?.dailyAgreements ?? '-'}
             </li>
           </ul>
           <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>

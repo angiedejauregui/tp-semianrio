@@ -89,7 +89,7 @@ const Dashboard = () => {
             <span style={{color: totalCalls >= totalCallsGoal ? 'green' : 'red'}}>
               {totalCalls >= totalCallsGoal
                 ? '✅ Meta semanal cumplida'
-                : '❌ Meta semanal no cumplida'}
+                : '❌ Meta semanal no cumplida'} 
             </span>
           </li>
           <li>
