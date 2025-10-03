@@ -1,0 +1,81 @@
+{
+  "_id": "68e0204271d8d9144184de90",
+  "nombre": "Andrea",
+  "apellido": "Gómez",
+  "email": "andrea@gmail.com",
+  "contrasena": "5678",
+  "historical": {
+    "goalsByWeek": [
+      { "semana": 1, "dailyCalls": 15, "dailyAgreements": 4 },
+      { "semana": 2, "dailyCalls": 14, "dailyAgreements": 3 },
+      { "semana": 3, "dailyCalls": 16, "dailyAgreements": 5 },
+      { "semana": 4, "dailyCalls": 15, "dailyAgreements": 4 }
+    ],
+    "lastDay": {
+      "calls": 18,
+      "agreements": 5,
+      "totalCalls": 18,
+      "totalAgreements": 5,
+      "answeredCalls": 15,
+      "avgDuration": 21.5
+    },
+    "historicalByWeek": [
+      {
+        "semana": 1,
+        "llamadas": 55,
+        "acuerdos": 13,
+        "contestadas": 44,
+        "duracionPromedio": 21.8,
+        "dias": [
+          { "dia": "Lunes", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 21.0 },
+          { "dia": "Martes", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 22.0 },
+          { "dia": "Miércoles", "llamadas": 10, "contestadas": 8, "acuerdos": 2, "duracion": 21.5 },
+          { "dia": "Jueves", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 22.5 },
+          { "dia": "Viernes", "llamadas": 11, "contestadas": 8, "acuerdos": 2, "duracion": 21.9 }
+        ]
+      },
+      {
+        "semana": 2,
+        "llamadas": 53,
+        "acuerdos": 12,
+        "contestadas": 43,
+        "duracionPromedio": 20.5,
+        "dias": [
+          { "dia": "Lunes", "llamadas": 10, "contestadas": 8, "acuerdos": 2, "duracion": 20.2 },
+          { "dia": "Martes", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 20.8 },
+          { "dia": "Miércoles", "llamadas": 10, "contestadas": 8, "acuerdos": 2, "duracion": 20.5 },
+          { "dia": "Jueves", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 20.9 },
+          { "dia": "Viernes", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 20.6 }
+        ]
+      },
+      {
+        "semana": 3,
+        "llamadas": 57,
+        "acuerdos": 14,
+        "contestadas": 46,
+        "duracionPromedio": 22.2,
+        "dias": [
+          { "dia": "Lunes", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 22.0 },
+          { "dia": "Martes", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 22.5 },
+          { "dia": "Miércoles", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 22.3 },
+          { "dia": "Jueves", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 22.7 },
+          { "dia": "Viernes", "llamadas": 12, "contestadas": 9, "acuerdos": 2, "duracion": 22.6 }
+        ]
+      },
+      {
+        "semana": 4,
+        "llamadas": 54,
+        "acuerdos": 11,
+        "contestadas": 43,
+        "duracionPromedio": 21.0,
+        "dias": [
+          { "dia": "Lunes", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 21.0 },
+          { "dia": "Martes", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 21.2 },
+          { "dia": "Miércoles", "llamadas": 10, "contestadas": 8, "acuerdos": 2, "duracion": 21.1 },
+          { "dia": "Jueves", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 21.3 },
+          { "dia": "Viernes", "llamadas": 11, "contestadas": 8, "acuerdos": 3, "duracion": 21.4 }
+        ]
+      }
+    ]
+  }
+}
