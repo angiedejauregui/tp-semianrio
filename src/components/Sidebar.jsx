@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LayoutDashboard, ClipboardClock, LogOut } from 'lucide-react';
 import ModalConfirmacion from './ModalConfirmacion';
 import './Sidebar.css';
 
@@ -29,21 +30,24 @@ return (
             onClick={() => setCurrentView("dashboard")}
             className={`sidebar-item ${currentView === "dashboard" ? "active" : ""}`}
         >
-            Dashboard
+            <LayoutDashboard size={20} />
+            <span>Dashboard</span>
         </div>
         
         <div 
             onClick={() => setCurrentView("historial")}
             className={`sidebar-item ${currentView === "historial" ? "active" : ""}`}
         >
-            Historial
+            <ClipboardClock size={20} />
+            <span>Historial</span>
         </div>
         
         <div 
             onClick={handleLogout}
             className="sidebar-logout"
         >
-            Cerrar sesión
+            <LogOut size={20} />
+            <span>Cerrar sesión</span>
         </div>
 
         <ModalConfirmacion

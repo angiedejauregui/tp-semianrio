@@ -1,3 +1,4 @@
+import { CircleUserRound } from 'lucide-react';
 import './Header.css';
 
 const Header = ({ usuario, currentView }) => {
@@ -23,13 +24,7 @@ const Header = ({ usuario, currentView }) => {
         {/* Información del usuario del lado derecho */}
         <div className="header-user">
           <div className="user-avatar">
-            <svg 
-              className="user-icon" 
-              fill="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
+            <CircleUserRound size={42} strokeWidth={1.5} className="user-icon" />
           </div>
           <div className="user-info">
             <div className="user-name">
