@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import './InicioSesion.css';
@@ -6,6 +7,7 @@ import './InicioSesion.css';
 const InicioSesion = ({ onLogin, onGoToRegister }) => {
   const [form, setForm] = useState({ email: '', contrasena: '' });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,8 +26,7 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
     try {
       localStorage.removeItem('userData');
       const res = await axios.post('http://localhost:5000/api/users/login', form);
-      // Si la respuesta es 200 pero no hay usuario, es error
-      if (res.status === 200 && res.data && res.data.user && !res.data.error) {
+      if (res.status === 200 && res.data?.user && !res.data.error) {
         localStorage.setItem('userData', JSON.stringify(res.data.user));
         toast.success('Inicio de sesión exitoso');
         onLogin();
@@ -62,16 +63,29 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
             />
           </div>
 
-          <div className="inicio-form-group">
+          <div className="inicio-form-group" style={{ position: 'relative' }}>
             <label className="inicio-label">Contraseña</label>
             <input
               name="contrasena"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Ingrese su contraseña"
               value={form.contrasena}
               onChange={handleChange}
               className="inicio-input"
+              style={{ paddingRight: '40px' }} // espacio para el ícono
             />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-0%)',
+                cursor: 'pointer'
+              }}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
           </div>
 
           {error && (
@@ -80,10 +94,7 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
             </div>
           )}
 
-          <button 
-            type="submit" 
-            className="inicio-button"
-          >
+          <button type="submit" className="inicio-button">
             Ingresar
           </button>
         </form>
@@ -95,9 +106,9 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
 
         <div className="inicio-register">
           <span>¿No tenés cuenta? </span>
-          <button 
-            type="button" 
-            className="inicio-register-button" 
+          <button
+            type="button"
+            className="inicio-register-button"
             onClick={onGoToRegister}
           >
             Registrate aquí
