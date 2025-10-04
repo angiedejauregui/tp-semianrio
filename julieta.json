@@ -3,77 +3,73 @@
   "nombre": "Julieta",
   "apellido": "Pérez",
   "email": "julieta@gmail.com",
-  "contrasena": "1234",
+  "contrasena": "julieta123",
   "historical": {
     "goalsByWeek": [
-      { "semana": 1, "dailyCalls": 12, "dailyAgreements": 3 },
-      { "semana": 2, "dailyCalls": 14, "dailyAgreements": 4 },
-      { "semana": 3, "dailyCalls": 13, "dailyAgreements": 3 },
-      { "semana": 4, "dailyCalls": 15, "dailyAgreements": 5 }
+      { "semana": 1, "dailyCalls": 100, "dailyAgreements": 70 },
+      { "semana": 2, "dailyCalls": 120, "dailyAgreements": 100 },
+      { "semana": 3, "dailyCalls": 110, "dailyAgreements": 80 },
+      { "semana": 4, "dailyCalls": 150, "dailyAgreements": 90 }
     ],
-    "lastDay": {
-      "calls": 15,
-      "agreements": 4,
-      "totalCalls": 15,
-      "totalAgreements": 4,
-      "answeredCalls": 12,
-      "avgDuration": 22.5
-    },
     "historicalByWeek": [
       {
         "semana": 1,
-        "llamadas": 60,
-        "acuerdos": 14,
-        "contestadas": 50,
+        "llamadas": 100,
+        "acuerdos": 70,
+        "contestadas": 85,
         "duracionPromedio": 22.4,
+        "cumpleMeta": true,
         "dias": [
-          { "dia": "Lunes", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 22.1 },
-          { "dia": "Martes", "llamadas": 14, "contestadas": 12, "acuerdos": 4, "duracion": 23.5 },
-          { "dia": "Miércoles", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 21.8 },
-          { "dia": "Jueves", "llamadas": 13, "contestadas": 11, "acuerdos": 3, "duracion": 24.0 },
-          { "dia": "Viernes", "llamadas": 10, "contestadas": 8, "acuerdos": 2, "duracion": 20.5 }
+          { "dia": "Lunes", "llamadas": 18, "contestadas": 15, "acuerdos": 12, "duracion": 22.1 },
+          { "dia": "Martes", "llamadas": 22, "contestadas": 18, "acuerdos": 14, "duracion": 23.5 },
+          { "dia": "Miércoles", "llamadas": 20, "contestadas": 17, "acuerdos": 14, "duracion": 21.8 },
+          { "dia": "Jueves", "llamadas": 19, "contestadas": 17, "acuerdos": 15, "duracion": 24.0 },
+          { "dia": "Viernes", "llamadas": 21, "contestadas": 18, "acuerdos": 15, "duracion": 20.5 }
         ]
       },
       {
         "semana": 2,
-        "llamadas": 58,
-        "acuerdos": 12,
-        "contestadas": 48,
+        "llamadas": 125,
+        "acuerdos": 60,
+        "contestadas": 100,
         "duracionPromedio": 21.9,
+        "cumpleMeta": false,
         "dias": [
-          { "dia": "Lunes", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 21.5 },
-          { "dia": "Martes", "llamadas": 13, "contestadas": 11, "acuerdos": 3, "duracion": 22.0 },
-          { "dia": "Miércoles", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 21.2 },
-          { "dia": "Jueves", "llamadas": 12, "contestadas": 10, "acuerdos": 2, "duracion": 22.3 },
-          { "dia": "Viernes", "llamadas": 10, "contestadas": 8, "acuerdos": 2, "duracion": 21.5 }
+          { "dia": "Lunes", "llamadas": 20, "contestadas": 18, "acuerdos": 10, "duracion": 21.5 },
+          { "dia": "Martes", "llamadas": 25, "contestadas": 20, "acuerdos": 12, "duracion": 22.0 },
+          { "dia": "Miércoles", "llamadas": 30, "contestadas": 24, "acuerdos": 13, "duracion": 21.2 },
+          { "dia": "Jueves", "llamadas": 25, "contestadas": 19, "acuerdos": 12, "duracion": 22.3 },
+          { "dia": "Viernes", "llamadas": 25, "contestadas": 19, "acuerdos": 13, "duracion": 21.5 }
         ]
       },
       {
         "semana": 3,
-        "llamadas": 62,
-        "acuerdos": 15,
-        "contestadas": 52,
+        "llamadas": 90,
+        "acuerdos": 85,
+        "contestadas": 70,
         "duracionPromedio": 23.0,
+        "cumpleMeta": false,
         "dias": [
-          { "dia": "Lunes", "llamadas": 13, "contestadas": 11, "acuerdos": 3, "duracion": 22.8 },
-          { "dia": "Martes", "llamadas": 14, "contestadas": 12, "acuerdos": 4, "duracion": 23.5 },
-          { "dia": "Miércoles", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 23.0 },
-          { "dia": "Jueves", "llamadas": 11, "contestadas": 9, "acuerdos": 3, "duracion": 23.2 },
-          { "dia": "Viernes", "llamadas": 12, "contestadas": 10, "acuerdos": 2, "duracion": 22.5 }
+          { "dia": "Lunes", "llamadas": 15, "contestadas": 12, "acuerdos": 16, "duracion": 22.8 },
+          { "dia": "Martes", "llamadas": 18, "contestadas": 14, "acuerdos": 17, "duracion": 23.5 },
+          { "dia": "Miércoles", "llamadas": 16, "contestadas": 12, "acuerdos": 18, "duracion": 23.0 },
+          { "dia": "Jueves", "llamadas": 20, "contestadas": 16, "acuerdos": 17, "duracion": 23.2 },
+          { "dia": "Viernes", "llamadas": 21, "contestadas": 16, "acuerdos": 17, "duracion": 22.5 }
         ]
       },
       {
         "semana": 4,
-        "llamadas": 59,
-        "acuerdos": 13,
-        "contestadas": 49,
+        "llamadas": 150,
+        "acuerdos": 90,
+        "contestadas": 130,
         "duracionPromedio": 22.8,
+        "cumpleMeta": true,
         "dias": [
-          { "dia": "Lunes", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 22.0 },
-          { "dia": "Martes", "llamadas": 13, "contestadas": 11, "acuerdos": 3, "duracion": 23.0 },
-          { "dia": "Miércoles", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 22.5 },
-          { "dia": "Jueves", "llamadas": 12, "contestadas": 10, "acuerdos": 3, "duracion": 23.2 },
-          { "dia": "Viernes", "llamadas": 11, "contestadas": 9, "acuerdos": 2, "duracion": 22.5 }
+          { "dia": "Lunes", "llamadas": 28, "contestadas": 24, "acuerdos": 18, "duracion": 22.0 },
+          { "dia": "Martes", "llamadas": 32, "contestadas": 28, "acuerdos": 19, "duracion": 23.0 },
+          { "dia": "Miércoles", "llamadas": 30, "contestadas": 26, "acuerdos": 18, "duracion": 22.5 },
+          { "dia": "Jueves", "llamadas": 30, "contestadas": 26, "acuerdos": 17, "duracion": 23.2 },
+          { "dia": "Viernes", "llamadas": 30, "contestadas": 26, "acuerdos": 18, "duracion": 22.5 }
         ]
       }
     ]
