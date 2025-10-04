@@ -31,9 +31,6 @@ const Historial = () => {
 
   return (
     <div>
-  <h2>Historial - {userInfo.nombre} {userInfo.apellido}</h2>
-      <p style={{ color: "#666", fontSize: "14px" }}>{userInfo.email}</p>
-
       <div style={{ display: "flex", justifyContent: "center", margin: "30px 0" }}>
         <div style={{ position: "relative", display: "inline-block" }}>
           <button onClick={() => setShowSemanas((prev) => !prev)}>

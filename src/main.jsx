@@ -13,12 +13,14 @@ createRoot(document.getElementById('root')).render(
       position="top-center"
       autoClose={3000}
       hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
+      newestOnTop={true}
+      closeOnClick={true}
       rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+      pauseOnFocusLoss={true}
+      draggable={true}
+      pauseOnHover={true}
+      theme="light"
+      style={{ fontSize: '14px' }}
     />
   </>,
 )

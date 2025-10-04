@@ -27,10 +27,8 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
       // Si la respuesta es 200 pero no hay usuario, es error
       if (res.status === 200 && res.data && res.data.user && !res.data.error) {
         localStorage.setItem('userData', JSON.stringify(res.data.user));
+        toast.success('Inicio de sesión exitoso');
         onLogin();
-        setTimeout(() => {
-          toast.success('Inicio de sesión exitoso');
-        }, 300);
       } else {
         localStorage.removeItem('userData');
         setError(res.data.error || 'Credenciales incorrectas');

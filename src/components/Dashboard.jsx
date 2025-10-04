@@ -66,10 +66,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Dashboard - {userData.name}</h2>
-      <p style={{ color: "#666", fontSize: "14px" }}>{userData.email}</p>
-
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "5px" }}>
         <h3>Progreso Diario</h3>
         <ul>
           <li>Llamadas realizadas: {dailyCalls}/{dailyCallsGoal}</li>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import './InicioSesion.css'; // Reutilizamos los mismos estilos
 
-const Registro = ({ onRegister }) => {
+const Registro = ({ onRegister, onGoToLogin }) => {
   const [form, setForm] = useState({
     nombre: '',
     apellido: '',
@@ -116,6 +116,19 @@ const Registro = ({ onRegister }) => {
             Registrarse
           </button>
         </form>
+
+        <div className="inicio-footer">
+          <p className="inicio-footer-text">
+            ¿Ya tienes una cuenta?{' '}
+            <button 
+              type="button"
+              onClick={onGoToLogin}
+              className="inicio-link-button"
+            >
+              Iniciar sesión
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );

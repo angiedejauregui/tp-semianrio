@@ -154,6 +154,37 @@
   color: #0056b3;
 }
 
+/* Footer para enlaces adicionales */
+.inicio-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.inicio-footer-text {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.inicio-link-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.inicio-link-button:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .inicio-box {
