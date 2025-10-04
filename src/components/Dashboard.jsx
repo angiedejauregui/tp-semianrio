@@ -58,10 +58,22 @@ const Dashboard = () => {
   }, [hoy]);
 
   // Metas por usuario
-  const dailyCallsGoal = userData.goals?.dailyCalls ?? 20;
-  const dailyAgreementsGoal = userData.goals?.agreements ?? 5;
-  const weeklyCallsGoal = dailyCallsGoal * 5;
-  const weeklyAgreementsGoal = dailyAgreementsGoal * 5;
+  let weeklyCallsGoal, weeklyAgreementsGoal;
+
+  if (userData.nombre === "Julieta") {
+    weeklyCallsGoal = 60;
+    weeklyAgreementsGoal = 100;
+  } else if (userData.nombre === "Andrea") {
+    weeklyCallsGoal = 50;  // metas diferentes para Andrea
+    weeklyAgreementsGoal = 80;
+  } else {
+    // Default
+    weeklyCallsGoal = 40;
+    weeklyAgreementsGoal = 20;
+  }
+
+  const dailyCallsGoal = Math.round(weeklyCallsGoal / 5);
+  const dailyAgreementsGoal = Math.round(weeklyAgreementsGoal / 5);
 
   // Métricas diarias
   const dailyCalls = diarias?.llamadas ?? 0;
@@ -74,7 +86,7 @@ const Dashboard = () => {
   const totalCalls = resumen?.totalLlamadas ?? 0;
   const totalAgreements = resumen?.acuerdosCerrados ?? 0;
 
-  // Cálculos de porcentajes separados
+  // Porcentajes
   const calculateWeeklyCallsPercentage = () => {
     return weeklyCallsGoal > 0 ? Math.round((totalCalls / weeklyCallsGoal) * 100) : 0;
   };
@@ -85,16 +97,22 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h3>Rendimiento Semanal</h3>
+      <h3>Rendimiento Semanal ({userData.nombre})</h3>
       <ul>
-        <li>Llamadas realizadas: {totalCalls}/{weeklyCallsGoal} ({calculateWeeklyCallsPercentage()}%)</li>
-        <li>Acuerdos logrados: {totalAgreements}/{weeklyAgreementsGoal} ({calculateWeeklyAgreementsPercentage()}%)</li>
+        <li>
+          Llamadas realizadas: {totalCalls}/{weeklyCallsGoal} (
+          {calculateWeeklyCallsPercentage()}%)
+        </li>
+        <li>
+          Acuerdos logrados: {totalAgreements}/{weeklyAgreementsGoal} (
+          {calculateWeeklyAgreementsPercentage()}%)
+        </li>
       </ul>
 
       <h3>Resumen Diario ({hoy})</h3>
       <ul>
-        <li>Llamadas realizadas: {dailyCalls}</li>
-        <li>Acuerdos logrados: {dailyAgreements}</li>
+        <li>Llamadas realizadas: {dailyCalls}/{dailyCallsGoal}</li>
+        <li>Acuerdos logrados: {dailyAgreements}/{dailyAgreementsGoal}</li>
       </ul>
 
       <h3>Indicadores</h3>
@@ -103,7 +121,9 @@ const Dashboard = () => {
         <li>Duración promedio de llamadas: {dailyAvgDuration} min</li>
       </ul>
 
-      <button onClick={realizarLlamada} style={btn}>Simular llamada</button>
+      <button onClick={realizarLlamada} style={btn}>
+        Simular llamada
+      </button>
     </div>
   );
 };
