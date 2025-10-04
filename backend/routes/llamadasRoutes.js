@@ -23,7 +23,7 @@ router.post("/realizar", async (req, res) => {
   }
 });
 
-// Métricas detalladas por usuario
+// Métricas generales por usuario
 router.get("/metricas/:usuarioId", async (req, res) => {
   try {
     const llamadas = await Llamada.find({ usuario: req.params.usuarioId });
@@ -50,7 +50,7 @@ router.get("/metricas/:usuarioId", async (req, res) => {
   }
 });
 
-// Resumen general por usuario (para tabla)
+// Resumen semanal por usuario (lunes a sábado)
 router.get("/resumen/:usuarioId", async (req, res) => {
   try {
     const { usuarioId } = req.params;
@@ -58,24 +58,78 @@ router.get("/resumen/:usuarioId", async (req, res) => {
     const resumen = await Llamada.aggregate([
       { $match: { usuario: new mongoose.Types.ObjectId(usuarioId) } },
       {
+        $project: {
+          acuerdo: 1,
+          contestada: 1,
+          duracion: 1,
+          diaSemana: { $dayOfWeek: "$fecha" } // 1 = domingo, 2 = lunes...
+        }
+      },
+      {
+        $match: {
+          diaSemana: { $gte: 2, $lte: 7 } // lunes a sábado
+        }
+      },
+      {
         $group: {
-          _id: "$usuario",
+          _id: null,
           totalLlamadas: { $sum: 1 },
-          llamadasContestadas: {
-            $sum: { $cond: ["$contestada", 1, 0] }
-          },
-          acuerdosCerrados: {
-            $sum: { $cond: ["$acuerdo", 1, 0] }
-          },
-          duracionTotal: { $sum: "$duracion" },
+          acuerdosCerrados: { $sum: { $cond: ["$acuerdo", 1, 0] } },
+          llamadasContestadas: { $sum: { $cond: ["$contestada", 1, 0] } },
           promedioDuracion: { $avg: "$duracion" }
         }
       }
     ]);
 
-    res.json(resumen[0] || {});
+    res.json(resumen[0] || {
+      totalLlamadas: 0,
+      acuerdosCerrados: 0,
+      llamadasContestadas: 0,
+      promedioDuracion: 0
+    });
   } catch (err) {
     res.status(500).json({ error: "Error al generar resumen" });
+  }
+});
+
+// Métricas agrupadas por día (para indicadores diarios)
+router.get("/diarias/:usuarioId", async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+    const llamadas = await Llamada.find({ usuario: usuarioId });
+
+    const porDia = {};
+
+    llamadas.forEach(llamada => {
+      const fechaStr = llamada.fecha.toISOString().split("T")[0]; // YYYY-MM-DD
+
+      if (!porDia[fechaStr]) {
+        porDia[fechaStr] = {
+          llamadas: 0,
+          acuerdos: 0,
+          contestadas: 0,
+          duraciones: []
+        };
+      }
+
+      porDia[fechaStr].llamadas += 1;
+      if (llamada.acuerdo) porDia[fechaStr].acuerdos += 1;
+      if (llamada.contestada) porDia[fechaStr].contestadas += 1;
+      porDia[fechaStr].duraciones.push(llamada.duracion);
+    });
+
+    Object.keys(porDia).forEach(fecha => {
+      const duraciones = porDia[fecha].duraciones;
+      const promedio = duraciones.length > 0
+        ? duraciones.reduce((a, b) => a + b, 0) / duraciones.length
+        : 0;
+      porDia[fecha].promedioDuracion = parseFloat(promedio.toFixed(2));
+      delete porDia[fecha].duraciones;
+    });
+
+    res.json({ porDia });
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener métricas diarias" });
   }
 });
 

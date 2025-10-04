@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
-
   const userData = JSON.parse(localStorage.getItem("userData"));
-  const [metricas, setMetricas] = useState(null);
+  const [diarias, setDiarias] = useState(null);
   const [resumen, setResumen] = useState(null);
+  const hoy = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
   const realizarLlamada = async () => {
     const llamada = {
@@ -14,99 +14,85 @@ const Dashboard = () => {
       acuerdo: Math.random() < 0.3
     };
 
-    await fetch("http://localhost:5000/llamadas/realizar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(llamada)
-    });
+    try {
+      const res = await fetch("http://localhost:5000/llamadas/realizar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(llamada)
+      });
 
-    obtenerMetricas();
-    obtenerResumen();
+      if (res.ok) {
+        await obtenerMetricasDiarias();
+        await obtenerResumenSemanal();
+      } else {
+        console.error("Error al registrar la llamada");
+      }
+    } catch (err) {
+      console.error("Error de red:", err);
+    }
   };
 
-  const obtenerMetricas = async () => {
-    const res = await fetch(`http://localhost:5000/llamadas/metricas/${userData._id}`);
-    const data = await res.json();
-    setMetricas(data);
+  const obtenerMetricasDiarias = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/llamadas/diarias/${userData._id}`);
+      const data = await res.json();
+      setDiarias(data.porDia?.[hoy] || null);
+    } catch (err) {
+      console.error("Error al obtener métricas diarias:", err);
+    }
   };
 
-  const obtenerResumen = async () => {
-    const res = await fetch(`http://localhost:5000/llamadas/resumen/${userData._id}`);
-    const data = await res.json();
-    setResumen(data);
+  const obtenerResumenSemanal = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/llamadas/resumen/${userData._id}`);
+      const data = await res.json();
+      setResumen(data);
+    } catch (err) {
+      console.error("Error al obtener resumen semanal:", err);
+    }
   };
 
   useEffect(() => {
-    obtenerMetricas();
-    obtenerResumen();
-  }, []);
+    obtenerMetricasDiarias();
+    obtenerResumenSemanal();
+  }, [hoy]);
 
-  // Mock daily metrics for demo (replace with real daily data if available)
-  const dailyCalls = metricas?.llamadasHoy ?? 0;
-  const dailyAgreements = metricas?.acuerdosHoy ?? 0;
+  // Metas por usuario
   const dailyCallsGoal = userData.goals?.dailyCalls ?? 20;
   const dailyAgreementsGoal = userData.goals?.dailyAgreements ?? 5;
-  const totalCalls = metricas?.total ?? 0;
-  const totalAgreements = metricas?.acuerdos ?? 0;
-  const totalAnswered = metricas?.contestadas ?? 0;
-  const totalAvgDuration = metricas?.promedioDuracion ?? 0;
-  const diasSemana = 5;
-  const totalCallsGoal = dailyCallsGoal * diasSemana;
-  const totalAgreementsGoal = dailyAgreementsGoal * diasSemana;
-  // Calcular días restantes (puedes ajustar según tu lógica real)
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0=domingo, 1=lunes...
-  const diasRestantes = Math.max(0, diasSemana - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+  const weeklyCallsGoal = dailyCallsGoal * 5;
+  const weeklyAgreementsGoal = dailyAgreementsGoal * 5;
 
-  // Calculate % answered
-  const percentAnswered = totalCalls > 0 ? Math.round((totalAnswered / totalCalls) * 100) : 0;
-  // Progreso llamadas y acuerdos
-  const progresoLlamadas = Math.round((totalCalls / totalCallsGoal) * 100);
-  const progresoAcuerdos = Math.round((totalAgreements / totalAgreementsGoal) * 100);
+  // Métricas diarias
+  const dailyCalls = diarias?.llamadas ?? 0;
+  const dailyAgreements = diarias?.acuerdos ?? 0;
+  const dailyAnswered = diarias?.contestadas ?? 0;
+  const dailyAvgDuration = diarias?.promedioDuracion ?? 0;
+  const dailyContactRate = dailyCalls > 0 ? Math.round((dailyAnswered / dailyCalls) * 100) : 0;
+
+  // Métricas acumuladas
+  const totalCalls = resumen?.totalLlamadas ?? 0;
+  const totalAgreements = resumen?.acuerdosCerrados ?? 0;
 
   return (
     <div>
-      <div style={{ marginTop: "5px" }}>
-        <h3>Progreso Diario</h3>
-        <ul>
-          <li>Llamadas realizadas: {dailyCalls}/{dailyCallsGoal}</li>
-          <li>Acuerdos logrados: {dailyAgreements}/{dailyAgreementsGoal}</li>
-        </ul>
-      </div>
+      <h3>📅 Rendimiento Semanal</h3>
+      <ul>
+        <li>Llamadas realizadas: {totalCalls}/{weeklyCallsGoal}</li>
+        <li>Acuerdos logrados: {totalAgreements}/{weeklyAgreementsGoal}</li>
+      </ul>
 
-      <div style={{ marginTop: "20px" }}>
-        <h3>Historial Acumulado</h3>
-        <ul>
-          <li>
-            <strong>Llamadas realizadas:</strong> {totalCalls}/{totalCallsGoal}
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <span style={{color: totalCalls >= totalCallsGoal ? 'green' : 'red'}}>
-              {totalCalls >= totalCallsGoal
-                ? '✅ Meta semanal cumplida'
-                : '❌ Meta semanal no cumplida'} 
-            </span>
-          </li>
-          <li>
-            <strong>Acuerdos alcanzados:</strong> {totalAgreements}/{totalAgreementsGoal}
-          </li>
-          <li>
-            <span style={{color: totalAgreements >= totalAgreementsGoal ? 'green' : 'red'}}>
-              {totalAgreements >= totalAgreementsGoal
-                ? '✅ Meta semanal cumplida'
-                : '❌ Meta semanal no cumplida'}
-            </span>
-          </li>
-          <li>
-            <strong>Llamadas contestadas:</strong> {percentAnswered}%
-          </li>
-          <li>
-            <strong>Duración promedio de llamada:</strong> {totalAvgDuration} min
-          </li>
-        </ul>
-      </div>
+      <h3>📈 Resumen Diario ({hoy})</h3>
+      <ul>
+        <li>Llamadas realizadas: {dailyCalls}</li>
+        <li>Acuerdos logrados: {dailyAgreements}</li>
+      </ul>
+
+      <h3>📊 Indicadores</h3>
+      <ul>
+        <li>Tasa de contacto efectivo: {dailyContactRate}%</li>
+        <li>Duración promedio de llamadas: {dailyAvgDuration} min</li>
+      </ul>
 
       <button onClick={realizarLlamada} style={btn}>Simular llamada</button>
     </div>
@@ -118,18 +104,6 @@ const btn = {
   padding: "10px 20px",
   fontSize: "16px",
   cursor: "pointer"
-};
-
-const th = {
-  border: "1px solid #ccc",
-  padding: "8px",
-  backgroundColor: "#f5f5f5",
-  textAlign: "left"
-};
-
-const td = {
-  border: "1px solid #ccc",
-  padding: "8px"
 };
 
 export default Dashboard;
