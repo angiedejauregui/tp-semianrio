@@ -57,14 +57,14 @@ const Dashboard = () => {
     obtenerResumenSemanal();
   }, [hoy]);
 
-  // Metas por usuario
+  // Metas semanales por usuario
   let weeklyCallsGoal, weeklyAgreementsGoal;
 
   if (userData.nombre === "Julieta") {
     weeklyCallsGoal = 60;
     weeklyAgreementsGoal = 100;
   } else if (userData.nombre === "Andrea") {
-    weeklyCallsGoal = 50;  // metas diferentes para Andrea
+    weeklyCallsGoal = 50;
     weeklyAgreementsGoal = 80;
   } else {
     // Default
@@ -86,7 +86,7 @@ const Dashboard = () => {
   const totalCalls = resumen?.totalLlamadas ?? 0;
   const totalAgreements = resumen?.acuerdosCerrados ?? 0;
 
-  // Porcentajes
+  // Porcentajes semanales
   const calculateWeeklyCallsPercentage = () => {
     return weeklyCallsGoal > 0 ? Math.round((totalCalls / weeklyCallsGoal) * 100) : 0;
   };
@@ -100,19 +100,17 @@ const Dashboard = () => {
       <h3>Rendimiento Semanal ({userData.nombre})</h3>
       <ul>
         <li>
-          Llamadas realizadas: {totalCalls}/{weeklyCallsGoal} (
-          {calculateWeeklyCallsPercentage()}%)
+          Llamadas realizadas: {totalCalls}/{weeklyCallsGoal} ({calculateWeeklyCallsPercentage()}%)
         </li>
         <li>
-          Acuerdos logrados: {totalAgreements}/{weeklyAgreementsGoal} (
-          {calculateWeeklyAgreementsPercentage()}%)
+          Acuerdos logrados: {totalAgreements}/{weeklyAgreementsGoal} ({calculateWeeklyAgreementsPercentage()}%)
         </li>
       </ul>
 
       <h3>Resumen Diario ({hoy})</h3>
       <ul>
-        <li>Llamadas realizadas: {dailyCalls}/{dailyCallsGoal}</li>
-        <li>Acuerdos logrados: {dailyAgreements}/{dailyAgreementsGoal}</li>
+        <li>Llamadas realizadas: {dailyCalls}</li>
+        <li>Acuerdos logrados: {dailyAgreements}</li>
       </ul>
 
       <h3>Indicadores</h3>
