@@ -10,4 +10,4 @@ const llamadaSchema = new mongoose.Schema({
 
 const Llamada = mongoose.model("Llamada", llamadaSchema);
 
-export default Llamada; // ✅ ESTA LÍNEA ES CLAVE
+export default Llamada;

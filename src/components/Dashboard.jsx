@@ -9,7 +9,7 @@ const Dashboard = () => {
   const realizarLlamada = async () => {
     const llamada = {
       usuarioId: userData._id,
-      duracion: Math.floor(Math.random() * 5) + 1,
+      duracion: Math.floor(Math.random() * (30 - 20 + 1)) + 20,
       contestada: Math.random() < 0.8,
       acuerdo: Math.random() < 0.3
     };
@@ -24,11 +24,9 @@ const Dashboard = () => {
       if (res.ok) {
         await obtenerMetricasDiarias();
         await obtenerResumenSemanal();
-      } else {
-        console.error("Error al registrar la llamada");
       }
     } catch (err) {
-      console.error("Error de red:", err);
+      // Error en la llamada
     }
   };
 
@@ -38,7 +36,7 @@ const Dashboard = () => {
       const data = await res.json();
       setDiarias(data.porDia?.[hoy] || null);
     } catch (err) {
-      console.error("Error al obtener métricas diarias:", err);
+      // Error al obtener métricas diarias
     }
   };
 
@@ -48,7 +46,7 @@ const Dashboard = () => {
       const data = await res.json();
       setResumen(data);
     } catch (err) {
-      console.error("Error al obtener resumen semanal:", err);
+      // Error al obtener resumen semanal
     }
   };
 
@@ -61,19 +59,16 @@ const Dashboard = () => {
   let weeklyCallsGoal, weeklyAgreementsGoal;
 
   if (userData.nombre === "Julieta") {
-    weeklyCallsGoal = 60;
-    weeklyAgreementsGoal = 100;
-  } else if (userData.nombre === "Andrea") {
-    weeklyCallsGoal = 50;
+    weeklyCallsGoal = 100;
     weeklyAgreementsGoal = 80;
+  } else if (userData.nombre === "Andrea") {
+    weeklyCallsGoal = 90;
+    weeklyAgreementsGoal = 70;
   } else {
     // Default
     weeklyCallsGoal = 40;
     weeklyAgreementsGoal = 20;
   }
-
-  const dailyCallsGoal = Math.round(weeklyCallsGoal / 5);
-  const dailyAgreementsGoal = Math.round(weeklyAgreementsGoal / 5);
 
   // Métricas diarias
   const dailyCalls = diarias?.llamadas ?? 0;

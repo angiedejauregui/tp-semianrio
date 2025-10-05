@@ -135,7 +135,7 @@ const Historial = () => {
   );
 };
 
-// 🎨 Estilos visuales
+// Estilos visuales
 const semanaTitulo = {
   fontSize: "22px",
   fontWeight: "600",

@@ -17,57 +17,42 @@ router.post("/realizar", async (req, res) => {
     });
 
     await nuevaLlamada.save();
-    res.status(201).json({ message: "Llamada registrada", llamada: nuevaLlamada });
+    res.status(201).json({ message: "Llamada registrada" });
   } catch (err) {
     res.status(500).json({ error: "Error al guardar la llamada" });
   }
 });
 
-// Métricas generales por usuario
-router.get("/metricas/:usuarioId", async (req, res) => {
-  try {
-    const llamadas = await Llamada.find({ usuario: req.params.usuarioId });
-
-    const total = llamadas.length;
-    const contestadas = llamadas.filter(l => l.contestada).length;
-    const acuerdos = llamadas.filter(l => l.acuerdo).length;
-    const duracionesContestadas = llamadas
-      .filter(l => l.contestada)
-      .map(l => l.duracion);
-
-    const promedioDuracion = duracionesContestadas.length > 0
-      ? duracionesContestadas.reduce((a, b) => a + b, 0) / duracionesContestadas.length
-      : 0;
-
-    res.json({
-      total,
-      contestadas,
-      acuerdos,
-      promedioDuracion: promedioDuracion.toFixed(2)
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Error al obtener métricas" });
-  }
-});
-
-// Resumen semanal por usuario (lunes a sábado)
+// Resumen semanal por usuario (semana actual: lunes a domingo)
 router.get("/resumen/:usuarioId", async (req, res) => {
   try {
     const { usuarioId } = req.params;
 
+    // Calcular fechas de la semana actual (lunes a domingo)
+    const hoy = new Date();
+    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes...
+    const diasAtrasHastaLunes = diaSemana === 0 ? 6 : diaSemana - 1;
+    
+    const lunesActual = new Date(hoy);
+    lunesActual.setDate(hoy.getDate() - diasAtrasHastaLunes);
+    lunesActual.setHours(0, 0, 0, 0);
+    
+    const domingoActual = new Date(lunesActual);
+    domingoActual.setDate(lunesActual.getDate() + 6);
+    domingoActual.setHours(23, 59, 59, 999);
+
     const resumen = await Llamada.aggregate([
-      { $match: { usuario: new mongoose.Types.ObjectId(usuarioId) } },
+      { 
+        $match: { 
+          usuario: new mongoose.Types.ObjectId(usuarioId),
+          fecha: { $gte: lunesActual, $lte: domingoActual }
+        }
+      },
       {
         $project: {
           acuerdo: 1,
           contestada: 1,
-          duracion: 1,
-          diaSemana: { $dayOfWeek: "$fecha" } // 1 = domingo, 2 = lunes...
-        }
-      },
-      {
-        $match: {
-          diaSemana: { $gte: 2, $lte: 7 } // lunes a sábado
+          duracion: 1
         }
       },
       {
@@ -80,52 +65,53 @@ router.get("/resumen/:usuarioId", async (req, res) => {
         }
       }
     ]);
-
-    res.json(resumen[0] || {
+    
+    const resultado = resumen[0] || {
       totalLlamadas: 0,
       acuerdosCerrados: 0,
       llamadasContestadas: 0,
       promedioDuracion: 0
-    });
+    };
+    
+    res.json(resultado);
   } catch (err) {
     res.status(500).json({ error: "Error al generar resumen" });
   }
 });
 
-// Métricas agrupadas por día (para indicadores diarios)
+// Métricas del día actual (se resetea cada día)
 router.get("/diarias/:usuarioId", async (req, res) => {
   try {
     const { usuarioId } = req.params;
-    const llamadas = await Llamada.find({ usuario: usuarioId });
+    
+    // Obtener solo las llamadas del día actual
+    const hoy = new Date();
+    const inicioHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+    const finHoy = new Date(inicioHoy);
+    finHoy.setDate(finHoy.getDate() + 1);
 
+    const llamadasHoy = await Llamada.find({ 
+      usuario: usuarioId,
+      fecha: { $gte: inicioHoy, $lt: finHoy }
+    });
+
+    // Calcular métricas del día actual
+    const metricas = {
+      llamadas: llamadasHoy.length,
+      acuerdos: llamadasHoy.filter(l => l.acuerdo).length,
+      contestadas: llamadasHoy.filter(l => l.contestada).length,
+      promedioDuracion: 0
+    };
+
+    if (llamadasHoy.length > 0) {
+      const totalDuracion = llamadasHoy.reduce((sum, l) => sum + l.duracion, 0);
+      metricas.promedioDuracion = parseFloat((totalDuracion / llamadasHoy.length).toFixed(2));
+    }
+
+    // Devolver en el formato esperado por el frontend
+    const fechaHoy = inicioHoy.toISOString().split("T")[0];
     const porDia = {};
-
-    llamadas.forEach(llamada => {
-      const fechaStr = llamada.fecha.toISOString().split("T")[0]; // YYYY-MM-DD
-
-      if (!porDia[fechaStr]) {
-        porDia[fechaStr] = {
-          llamadas: 0,
-          acuerdos: 0,
-          contestadas: 0,
-          duraciones: []
-        };
-      }
-
-      porDia[fechaStr].llamadas += 1;
-      if (llamada.acuerdo) porDia[fechaStr].acuerdos += 1;
-      if (llamada.contestada) porDia[fechaStr].contestadas += 1;
-      porDia[fechaStr].duraciones.push(llamada.duracion);
-    });
-
-    Object.keys(porDia).forEach(fecha => {
-      const duraciones = porDia[fecha].duraciones;
-      const promedio = duraciones.length > 0
-        ? duraciones.reduce((a, b) => a + b, 0) / duraciones.length
-        : 0;
-      porDia[fecha].promedioDuracion = parseFloat(promedio.toFixed(2));
-      delete porDia[fecha].duraciones;
-    });
+    porDia[fechaHoy] = metricas;
 
     res.json({ porDia });
   } catch (err) {

@@ -16,12 +16,11 @@ app.use('/llamadas', llamadasRoutes);
 
 // Ruta raíz para testeo
 app.get('/', (req, res) => {
-  res.send('✅ Backend activo y funcionando');
+  res.send('Backend activo y funcionando');
 });
 
 // Manejo global de errores
 app.use((err, req, res, next) => {
-  console.error('❌ Error global:', err);
   res.status(500).json({ error: 'Error interno del servidor' });
 });
 
@@ -31,11 +30,10 @@ mongoose.connect('mongodb://localhost:27017/Operadores', {
   useUnifiedTopology: true
 })
 .then(() => {
-  console.log('✅ Conectado a MongoDB');
   app.listen(5000, () => {
-    console.log('🚀 Servidor corriendo en http://localhost:5000');
+    console.log('Servidor corriendo en http://localhost:5000');
   });
 })
 .catch(err => {
-  console.error('❌ Error al conectar a MongoDB:', err);
+  console.error('Error al conectar a MongoDB:', err);
 });
