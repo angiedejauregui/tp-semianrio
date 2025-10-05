@@ -72,7 +72,7 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
               value={form.contrasena}
               onChange={handleChange}
               className="inicio-input"
-              style={{ paddingRight: '40px' }} // espacio para el ícono
+              style={{ paddingRight: '40px' }}
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
@@ -84,7 +84,7 @@ const InicioSesion = ({ onLogin, onGoToRegister }) => {
                 cursor: 'pointer'
               }}
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </span>
           </div>
 

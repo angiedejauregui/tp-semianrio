@@ -65,7 +65,7 @@ const Historial = () => {
             }}
             disabled={!tieneHistorial}
           >
-            FECHA
+            SEMANA
           </button>
           {showSemanas && tieneHistorial && (
             <div style={dropdown}>
