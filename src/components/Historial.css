@@ -1,0 +1,207 @@
+/* Contenedor principal del historial */
+.historial-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Header con título y selector de semana */
+.historial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.historial-titulo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.historial-titulo.hidden {
+  visibility: hidden;
+}
+
+/* Selector de semana */
+.semana-selector {
+  position: relative;
+}
+
+.semana-button {
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.semana-button:enabled {
+  background-color: #5dade2;
+}
+
+.semana-button:enabled:hover {
+  background-color: #3498db;
+}
+
+.semana-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Dropdown de semanas */
+.semana-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+  min-width: 160px;
+  margin-top: 6px;
+}
+
+.semana-option {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.semana-option:hover {
+  background-color: #f0f0f0;
+}
+
+.semana-option:last-child {
+  border-bottom: none;
+}
+
+/* Mensajes iniciales */
+.mensaje-inicial {
+  margin-top: 80px;
+  text-align: center;
+  color: #555;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.mensaje-inicial p {
+  margin: 0 0 15px 0;
+}
+
+/* Contenido de la semana seleccionada */
+.semana-contenido {
+  margin-top: 10px;
+}
+
+/* Métricas de resumen */
+.metricas-resumen {
+  list-style: none;
+  padding-left: 0;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Tabla de datos diarios */
+.historial-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  font-family: Arial, sans-serif;
+  background-color: #fdfefe;
+}
+
+.tabla-header {
+  background-color: #5dade2;
+}
+
+.tabla-header th {
+  padding: 14px;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #3498db;
+}
+
+
+
+.fila-par {
+  background-color: #f4f8fb;
+}
+
+.fila-impar {
+  background-color: #ffffff;
+}
+
+.tabla-cell {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 15px;
+  color: #444;
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .historial-container {
+    padding: 20px;
+  }
+  
+  .historial-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .historial-titulo {
+    font-size: 24px;
+  }
+  
+  .metricas-resumen {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabla-header th,
+  .tabla-cell {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+  
+  .semana-dropdown {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .historial-container {
+    padding: 15px;
+  }
+  
+  .historial-titulo {
+    font-size: 20px;
+  }
+  
+  .semana-button {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+  
+  .mensaje-inicial {
+    font-size: 16px;
+    padding: 25px;
+  }
+}
