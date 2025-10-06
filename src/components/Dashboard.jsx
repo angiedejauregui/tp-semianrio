@@ -46,11 +46,12 @@ const Dashboard = () => {
   const hoy = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
   const realizarLlamada = async () => {
+    const contestada = Math.random() < 0.8;
     const llamada = {
       usuarioId: userData._id,
-      duracion: Math.floor(Math.random() * (30 - 20 + 1)) + 20,
-      contestada: Math.random() < 0.8,
-      acuerdo: Math.random() < 0.3
+      duracion: contestada ? Math.floor(Math.random() * (30 - 20 + 1)) + 20 : 0,
+      contestada: contestada,
+      acuerdo: contestada ? Math.random() < 0.3 : false
     };
 
     try {

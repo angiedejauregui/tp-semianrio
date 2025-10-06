@@ -61,7 +61,11 @@ router.get("/resumen/:usuarioId", async (req, res) => {
           totalLlamadas: { $sum: 1 },
           acuerdosCerrados: { $sum: { $cond: ["$acuerdo", 1, 0] } },
           llamadasContestadas: { $sum: { $cond: ["$contestada", 1, 0] } },
-          promedioDuracion: { $avg: "$duracion" }
+          promedioDuracion: { 
+            $avg: { 
+              $cond: ["$contestada", "$duracion", null] 
+            }
+          }
         }
       }
     ]);
@@ -109,9 +113,10 @@ router.get("/semana/:usuarioId", async (req, res) => {
       
       const esHoy = fecha.toDateString() === hoy.toDateString();
       
-      const totalDuracion = llamadasDelDia.reduce((sum, l) => sum + l.duracion, 0);
-      const promedioDuracion = llamadasDelDia.length > 0 ? 
-        parseFloat((totalDuracion / llamadasDelDia.length).toFixed(2)) : 0;
+      const llamadasContestadas = llamadasDelDia.filter(l => l.contestada);
+      const totalDuracion = llamadasContestadas.reduce((sum, l) => sum + l.duracion, 0);
+      const promedioDuracion = llamadasContestadas.length > 0 ? 
+        parseFloat((totalDuracion / llamadasContestadas.length).toFixed(2)) : 0;
       
       datosPorDia.push({
         dia: diasSemana[i],
@@ -156,9 +161,10 @@ router.get("/diarias/:usuarioId", async (req, res) => {
       totalDuracion: 0
     };
 
-    if (llamadasHoy.length > 0) {
-      const totalDuracion = llamadasHoy.reduce((sum, l) => sum + l.duracion, 0);
-      metricas.promedioDuracion = parseFloat((totalDuracion / llamadasHoy.length).toFixed(2));
+    const llamadasContestadas = llamadasHoy.filter(l => l.contestada);
+    if (llamadasContestadas.length > 0) {
+      const totalDuracion = llamadasContestadas.reduce((sum, l) => sum + l.duracion, 0);
+      metricas.promedioDuracion = parseFloat((totalDuracion / llamadasContestadas.length).toFixed(2));
       metricas.totalDuracion = totalDuracion;
     }
 
