@@ -1,0 +1,363 @@
+/* Dashboard container principal */
+.dashboard-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-container * {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Los h3 ahora están todos dentro de .section-header */
+
+/* Section header con título y botón */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+/* Primera sección después del header principal */
+.section-header:first-child {
+  margin-top: 30px;
+}
+
+/* Secciones subsecuentes */
+.section-header:not(:first-child) {
+  margin-top: 50px;
+}
+
+.section-header h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header-button {
+  background-color: #5dade2;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header-button:hover {
+  background-color: #4a9bd1;
+}
+
+/* Gráficos circulares del rendimiento semanal */
+.charts-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chart-individual-container {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid #f1f3f4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+  min-width: 400px;
+  min-height: 280px;
+  max-width: 100%;
+  flex: 1;
+  transition: box-shadow 0.3s ease;
+}
+
+.chart-individual-container:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-wrapper-large {
+  width: 240px;
+  height: 240px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.chart-info {
+  text-align: center;
+}
+
+.chart-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 10px 0;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.chart-meta {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background: #6c757d;
+  padding: 8px 18px;
+  border-radius: 25px;
+  margin-bottom: 18px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.25);
+  letter-spacing: 0.3px;
+  align-self: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.legend-container {
+  border-left: 3px solid #e2e8f0;
+  padding-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 180px;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.legend-text {
+  font-size: 14px;
+  color: #4a5568;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+/* Daily Summary Cards */
+.daily-summary-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.daily-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid #f1f3f4;
+  transition: box-shadow 0.3s ease;
+  overflow: hidden;
+  min-width: 270px;
+}
+
+.daily-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.daily-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.daily-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.calls-icon {
+  background: #5dade2;
+}
+
+.agreements-icon {
+  background: #2ecc71;
+}
+
+.daily-card-badge {
+  background: #f8f9fa;
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid #dee2e6;
+}
+
+.daily-card-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.daily-card-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+.daily-card-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  line-height: 1.3;
+}
+
+.daily-card-footer {
+  margin-top: 20px;
+  background: #e3f2fd;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.daily-card-trend {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1976d2;
+  margin: 0;
+}
+
+/* Indicators Charts */
+.indicators-dual-container {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.indicator-chart-individual {
+  flex: 1;
+  min-width: 350px;
+  background: white;
+  flex: 1;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid #f1f3f4;
+  transition: box-shadow 0.3s ease;
+}
+
+.indicator-chart-individual:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.indicator-chart-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 20px 0;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.indicator-chart-wrapper {
+  height: 300px;
+  position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .chart-individual-container {
+    min-width: 300px;
+  }
+  
+  .indicator-chart-individual {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .chart-individual-container {
+    flex-direction: column;
+    gap: 20px;
+    min-width: auto;
+    text-align: center;
+  }
+  
+  .legend-container {
+    border-left: none;
+    border-top: 3px solid #e2e8f0;
+    padding-left: 0;
+    padding-top: 20px;
+    min-width: auto;
+  }
+  
+  .daily-card {
+    min-width: auto;
+  }
+  
+  .indicator-chart-individual {
+    min-width: auto;
+  }
+}

@@ -44,15 +44,15 @@ function App() {
   }
 
   return (
-    <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ fontFamily: "Arial, sans-serif" }}>
       <Sidebar 
         currentView={currentView} 
         setCurrentView={setCurrentView} 
         onLogout={handleLogout} 
       />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div style={{ marginLeft: "290px" }}>
         <Header usuario={userData} currentView={currentView} />
-        <div style={{ flex: 1, padding: "10px 20px", overflow: "auto" }}>
+        <div style={{ padding: "10px 20px" }}>
           {currentView === "dashboard" && <Dashboard />}
           {currentView === "historial" && <Historial />}
         </div>

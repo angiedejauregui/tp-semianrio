@@ -79,6 +79,58 @@ router.get("/resumen/:usuarioId", async (req, res) => {
   }
 });
 
+// Datos por día de la semana actual
+router.get("/semana/:usuarioId", async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+    
+    // Calcular fechas de la semana actual (lunes a domingo)
+    const hoy = new Date();
+    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes...
+    const diasAtrasHastaLunes = diaSemana === 0 ? 6 : diaSemana - 1;
+    
+    const lunesActual = new Date(hoy);
+    lunesActual.setDate(hoy.getDate() - diasAtrasHastaLunes);
+    lunesActual.setHours(0, 0, 0, 0);
+    
+    const diasSemana = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+    const datosPorDia = [];
+    
+    for (let i = 0; i < 7; i++) {
+      const fecha = new Date(lunesActual);
+      fecha.setDate(lunesActual.getDate() + i);
+      const fechaFin = new Date(fecha);
+      fechaFin.setHours(23, 59, 59, 999);
+      
+      const llamadasDelDia = await Llamada.find({
+        usuario: usuarioId,
+        fecha: { $gte: fecha, $lte: fechaFin }
+      });
+      
+      const esHoy = fecha.toDateString() === hoy.toDateString();
+      
+      const totalDuracion = llamadasDelDia.reduce((sum, l) => sum + l.duracion, 0);
+      const promedioDuracion = llamadasDelDia.length > 0 ? 
+        parseFloat((totalDuracion / llamadasDelDia.length).toFixed(2)) : 0;
+      
+      datosPorDia.push({
+        dia: diasSemana[i],
+        llamadas: llamadasDelDia.length,
+        acuerdos: llamadasDelDia.filter(l => l.acuerdo).length,
+        contactRate: llamadasDelDia.length > 0 ? 
+          Math.round((llamadasDelDia.filter(l => l.contestada).length / llamadasDelDia.length) * 100) : 0,
+        promedioDuracion: promedioDuracion,
+        esHoy: esHoy,
+        fecha: fecha.toISOString().split('T')[0]
+      });
+    }
+    
+    res.json(datosPorDia);
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener datos semanales" });
+  }
+});
+
 // Métricas del día actual (se resetea cada día)
 router.get("/diarias/:usuarioId", async (req, res) => {
   try {
@@ -100,12 +152,14 @@ router.get("/diarias/:usuarioId", async (req, res) => {
       llamadas: llamadasHoy.length,
       acuerdos: llamadasHoy.filter(l => l.acuerdo).length,
       contestadas: llamadasHoy.filter(l => l.contestada).length,
-      promedioDuracion: 0
+      promedioDuracion: 0,
+      totalDuracion: 0
     };
 
     if (llamadasHoy.length > 0) {
       const totalDuracion = llamadasHoy.reduce((sum, l) => sum + l.duracion, 0);
       metricas.promedioDuracion = parseFloat((totalDuracion / llamadasHoy.length).toFixed(2));
+      metricas.totalDuracion = totalDuracion;
     }
 
     // Devolver en el formato esperado por el frontend
