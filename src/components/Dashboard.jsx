@@ -50,6 +50,13 @@ const Dashboard = () => {
   const day = String(hoyDate.getDate()).padStart(2, '0');
   const hoy = `${year}-${month}-${day}`;
   
+  // Formatear fecha para mostrar en las cards
+  const fechaLegible = hoyDate.toLocaleDateString('es-ES', { 
+    day: 'numeric', 
+    month: 'short', 
+    year: 'numeric' 
+  });
+  
 
 
   const realizarLlamada = async () => {
@@ -353,7 +360,7 @@ const Dashboard = () => {
             <div className="daily-card-icon calls-icon">
               <Phone size={32} />
             </div>
-            <div className="daily-card-badge">6 Oct 2025</div>
+            <div className="daily-card-badge">{fechaLegible}</div>
           </div>
           <div className="daily-card-content">
             <div className="daily-card-number">{dailyCalls}</div>
@@ -371,7 +378,7 @@ const Dashboard = () => {
             <div className="daily-card-icon agreements-icon">
               <Handshake size={32} />
             </div>
-            <div className="daily-card-badge">6 Oct 2025</div>
+            <div className="daily-card-badge">{fechaLegible}</div>
           </div>
           <div className="daily-card-content">
             <div className="daily-card-number">{dailyAgreements}</div>
