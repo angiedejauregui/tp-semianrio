@@ -43,7 +43,14 @@ const Dashboard = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const [diarias, setDiarias] = useState(null);
   const [resumen, setResumen] = useState(null);
-  const hoy = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  // Generar fecha local sin problemas de zona horaria
+  const hoyDate = new Date();
+  const year = hoyDate.getFullYear();
+  const month = String(hoyDate.getMonth() + 1).padStart(2, '0');
+  const day = String(hoyDate.getDate()).padStart(2, '0');
+  const hoy = `${year}-${month}-${day}`;
+  
+
 
   const realizarLlamada = async () => {
     const contestada = Math.random() < 0.8;
@@ -74,9 +81,10 @@ const Dashboard = () => {
     try {
       const res = await fetch(`http://localhost:5000/llamadas/diarias/${userData._id}`);
       const data = await res.json();
+
       setDiarias(data.porDia?.[hoy] || null);
     } catch (err) {
-      // Error al obtener métricas diarias
+      console.error("Error al obtener métricas diarias:", err);
     }
   };
 
@@ -119,6 +127,8 @@ const Dashboard = () => {
   const dailyCalls = diarias?.llamadas ?? 0;
   const dailyAgreements = diarias?.acuerdos ?? 0;
   const dailyTotalDuration = diarias?.totalDuracion ?? 0;
+  
+
 
   // Métricas acumuladas
   const totalCalls = resumen?.totalLlamadas ?? 0;

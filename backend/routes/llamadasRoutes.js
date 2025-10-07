@@ -9,8 +9,14 @@ router.post("/realizar", async (req, res) => {
   const { usuarioId, duracion, contestada, acuerdo } = req.body;
 
   try {
+    // Crear fecha local que se mantenga como tal en MongoDB
+    const ahora = new Date();
+    const offsetMinutos = ahora.getTimezoneOffset();
+    const fechaLocal = new Date(ahora.getTime() - (offsetMinutos * 60000));
+    
     const nuevaLlamada = new Llamada({
       usuario: usuarioId,
+      fecha: fechaLocal,
       duracion,
       contestada,
       acuerdo
@@ -168,10 +174,15 @@ router.get("/diarias/:usuarioId", async (req, res) => {
       metricas.totalDuracion = totalDuracion;
     }
 
-    // Devolver en el formato esperado por el frontend
-    const fechaHoy = inicioHoy.toISOString().split("T")[0];
+    // Devolver en el formato esperado por el frontend - evitar problemas de zona horaria
+    const year = hoy.getFullYear();
+    const month = String(hoy.getMonth() + 1).padStart(2, '0');
+    const day = String(hoy.getDate()).padStart(2, '0');
+    const fechaHoy = `${year}-${month}-${day}`;
     const porDia = {};
     porDia[fechaHoy] = metricas;
+
+
 
     res.json({ porDia });
   } catch (err) {
