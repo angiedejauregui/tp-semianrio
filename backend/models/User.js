@@ -7,27 +7,48 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   contrasena: String,
   historical: {
-    historicalByWeek: [
-      {
-        semana: Number,
-        llamadas: Number,
-        acuerdos: Number,
-        dias: [
-          {
-            dia: String,
-            llamadas: Number,
-            contestadas: Number,
-            acuerdos: Number,
-            duracion: Number
-          }
-        ]
-      }
-    ],
     goalsByWeek: [
       {
         semana: Number,
         dailyCalls: Number,
         dailyAgreements: Number
+      }
+    ],
+    historicalByMonth: [
+      {
+        mes: String,
+        anio: Number,
+        semanas: [
+          {
+            semana: Number,
+            llamadas: Number,
+            acuerdos: Number,
+            contestadas: Number,
+            duracionPromedio: Number,
+            cumpleMeta: Boolean
+          }
+        ]
+      }
+    ],
+    historicalByWeek: [
+      {
+        semana: Number,
+        llamadas: Number,
+        acuerdos: Number,
+        contestadas: Number,
+        duracionPromedio: Number,
+        cumpleMeta: Boolean,
+        dias: [
+          {
+            fecha: String, // formato YYYY-MM-DD
+            dia: String,   // nombre del día
+            llamadas: Number,
+            contestadas: Number,
+            acuerdos: Number,
+            duracion: Number,
+            cumpleMeta: Boolean
+          }
+        ]
       }
     ]
   }
