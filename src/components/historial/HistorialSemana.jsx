@@ -194,9 +194,7 @@ const HistorialSemana = ({
           </div>
         </div>
       </div>
-
-      {/* Tabla de la semana */}
-
+      
       {/* Días de la semana con carousel de día */}
       <div className="semana-contenido">
         {/* Carousel: muestra un día a la vez, con navegación */}
