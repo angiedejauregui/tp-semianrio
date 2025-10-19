@@ -35,6 +35,17 @@ const acuerdosPieLabels = [
 const llamadasColors = ['#5dade2', '#85c1e9', '#f0f0f0']; // Realizadas fuerte, Extra pastel, Faltantes gris
 const acuerdosColors = ['#2ecc71', '#82e0aa', '#f0f0f0']; // Realizados fuerte, Extra pastel, Faltantes gris
 
+// Reutilizable: formatea minutos como en Dashboard (min / Hh Mmin / Hh)
+const formatMinutesToHours = (minutes) => {
+  if (typeof minutes !== 'number' || isNaN(minutes)) return '0 min';
+  const m = Math.round(minutes); // evitar decimales
+  if (m < 60) return `${m} min`;
+  const hours = Math.floor(m / 60);
+  const mins = m % 60;
+  if (hours > 0 && mins > 0) return `${hours}h ${mins}min`;
+  return `${hours}h`;
+};
+
 const HistorialSemana = ({
   semanaSeleccionada,
   historicalByWeek,
@@ -352,7 +363,7 @@ function WeekDayCarousel({ tablaSemana, formatearFechaCompleta }) {
             <div className="daily-card-label">Llamadas realizadas</div>
           </div>
           <div className="daily-card-footer">
-            <div className="daily-card-trend">Tiempo total: {duracionTotal} min</div>
+            <div className="daily-card-trend">Tiempo total: {formatMinutesToHours(duracionTotal)}</div>
           </div>
         </div>
 
@@ -371,11 +382,7 @@ function WeekDayCarousel({ tablaSemana, formatearFechaCompleta }) {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-        {tablaSemana.map((_, i) => (
-          <button key={i} onClick={() => setCurrent(i)} aria-label={`Ir a ${i+1}`} style={{ width: 10, height: 10, borderRadius: 10, background: i === current ? '#1976d2' : '#e6eef9', border: 'none' }} />
-        ))}
-      </div>
+      {/* indicadores deshabilitados - no mostrar puntos debajo del carousel */}
     </div>
   );
 }
