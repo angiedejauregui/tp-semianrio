@@ -218,6 +218,28 @@
   transition: background 0.3s;
 }
 
+/* Carousel nav buttons (scoped to semana content) */
+.semana-contenido .carousel-nav-button {
+  background: #fff;
+  border: 1px solid #e6eef9;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.semana-contenido .carousel-nav-button:hover:not(:disabled) {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.semana-contenido .carousel-nav-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .buscar-button:hover {
   background-color: #3498db;
 }
