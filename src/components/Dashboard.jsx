@@ -355,7 +355,7 @@ const Dashboard = () => {
       <div className="section-header">
         <h3>Resumen Diario ({hoy})</h3>
       </div>
-      <div className="daily-summary-container">
+  <div className="daily-summary-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
         <div className="daily-card dashboard-daily-card">
           <div className="daily-card-header">
             <div className="daily-card-icon calls-icon">

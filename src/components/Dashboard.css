@@ -373,8 +373,8 @@
 /* Dashboard-specific card sizing to match HistorialSemana layout (2 columns, ~720px max container) */
 .dashboard-daily-card {
   box-sizing: border-box;
-  width: 348px; /* (720px container - 24px gap) / 2 = 348px per card */
-  min-width: 0; /* allow the fixed width to take precedence */
+  width: 100%; /* fill the grid column */
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
