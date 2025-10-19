@@ -347,9 +347,9 @@ function WeekDayCarousel({ tablaSemana, formatearFechaCompleta }) {
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button onClick={prev} aria-label="Anterior" style={navButtonStyle}><ChevronLeft size={18} /></button>
+        <button onClick={prev} aria-label="Anterior" className="carousel-nav-button"><ChevronLeft size={18} /></button>
         <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>{day.dia}</h3>
-        <button onClick={next} aria-label="Siguiente" style={navButtonStyle}><ChevronRight size={18} /></button>
+        <button onClick={next} aria-label="Siguiente" className="carousel-nav-button"><ChevronRight size={18} /></button>
       </div>
 
       <div className="daily-summary-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, maxWidth: 720, width: '100%', justifyContent: 'center' }}>
@@ -381,16 +381,8 @@ function WeekDayCarousel({ tablaSemana, formatearFechaCompleta }) {
           </div>
         </div>
       </div>
-
-      {/* indicadores deshabilitados - no mostrar puntos debajo del carousel */}
     </div>
   );
 }
 
-const navButtonStyle = {
-  background: '#fff',
-  border: '1px solid #e6eef9',
-  padding: 8,
-  borderRadius: 8,
-  cursor: 'pointer'
-};
+// nav button styles moved to CSS .carousel-nav-button

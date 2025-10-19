@@ -400,6 +400,29 @@
   color: #666;
 }
 
+/* Carousel navigation button (re-added to restore styles) */
+.carousel-nav-button {
+  background: #fff;
+  border: 1px solid #e6eef9;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-nav-button:hover:not(:disabled) {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.carousel-nav-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .mes-stats span {
   display: flex;
   align-items: center;
