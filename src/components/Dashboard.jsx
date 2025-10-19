@@ -131,6 +131,7 @@ const Dashboard = () => {
   }
 
   // Métricas diarias
+  const dailyContestadas = diarias?.contestadas ?? 0; 
   const dailyCalls = diarias?.llamadas ?? 0;
   const dailyAgreements = diarias?.acuerdos ?? 0;
   const dailyTotalDuration = diarias?.totalDuracion ?? 0;
@@ -144,7 +145,7 @@ const Dashboard = () => {
   // Cálculos realizados una sola vez
   const weeklyCallsPercentage = weeklyCallsGoal > 0 ? Math.round((totalCalls / weeklyCallsGoal) * 100) : 0;
   const weeklyAgreementsPercentage = weeklyAgreementsGoal > 0 ? Math.round((totalAgreements / weeklyAgreementsGoal) * 100) : 0;
-  const dailyEffectiveness = dailyCalls > 0 ? Math.round((dailyAgreements / dailyCalls) * 100) : 0;
+  const dailyEffectiveness = dailyCalls > 0 ? Math.round((dailyAgreements / dailyContestadas) * 100) : 0;
   const formattedTotalTime = dailyTotalDuration < 60 
     ? `${dailyTotalDuration} min`
     : Math.floor(dailyTotalDuration / 60) > 0 && dailyTotalDuration % 60 > 0
@@ -302,14 +303,12 @@ const Dashboard = () => {
             <div className="chart-wrapper-large">
               <Doughnut {...llamadasChart} />
             </div>
-            <div className="chart-info">
-              <h4 className="chart-title">Llamadas</h4>
-            </div>
           </div>
           
           {/* Leyenda individual para Llamadas */}
           <div className="legend-container">
-            <div className="chart-meta">Meta semanal: {weeklyCallsGoal}</div>
+            <h4 className="chart-title" style={{ margin: 0, marginBottom: 14 }}>Llamadas</h4>
+            <div className="chart-meta" style={{ marginBottom: 18 }}>Meta semanal: {weeklyCallsGoal}</div>
             <div className="legend-items">
               <div className="legend-item">
                 <div className="legend-color" style={{backgroundColor: '#5dade2'}}></div>
@@ -329,14 +328,12 @@ const Dashboard = () => {
             <div className="chart-wrapper-large">
               <Doughnut {...acuerdosChart} />
             </div>
-            <div className="chart-info">
-              <h4 className="chart-title">Acuerdos</h4>
-            </div>
           </div>
           
           {/* Leyenda individual para Acuerdos */}
           <div className="legend-container">
-            <div className="chart-meta">Meta semanal: {weeklyAgreementsGoal}</div>
+            <h4 className="chart-title" style={{ margin: 0, marginBottom: 14 }}>Acuerdos</h4>
+            <div className="chart-meta" style={{ marginBottom: 18 }}>Meta semanal: {weeklyAgreementsGoal}</div>
             <div className="legend-items">
               <div className="legend-item">
                 <div className="legend-color" style={{backgroundColor: '#2ecc71'}}></div>
@@ -354,8 +351,8 @@ const Dashboard = () => {
       <div className="section-header">
         <h3>Resumen Diario ({hoy})</h3>
       </div>
-      <div className="daily-summary-container">
-        <div className="daily-card">
+  <div className="daily-summary-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
+        <div className="daily-card dashboard-daily-card">
           <div className="daily-card-header">
             <div className="daily-card-icon calls-icon">
               <Phone size={32} />
@@ -371,9 +368,9 @@ const Dashboard = () => {
               Tiempo total: {formattedTotalTime}
             </div>
           </div>
-        </div>
+  </div>
 
-        <div className="daily-card">
+  <div className="daily-card dashboard-daily-card">
           <div className="daily-card-header">
             <div className="daily-card-icon agreements-icon">
               <Handshake size={32} />
@@ -389,7 +386,7 @@ const Dashboard = () => {
               Efectividad: {dailyEffectiveness}%
             </div>
           </div>
-        </div>
+  </div>
       </div>
 
       <div className="section-header">

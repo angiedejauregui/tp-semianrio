@@ -139,7 +139,7 @@
 
 .legend-container {
   border-left: 3px solid #e2e8f0;
-  padding-left: 25px;
+  padding-left: 36px; /* separar del separador */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,6 +150,10 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.legend-container .chart-meta {
+  margin-left: 6px; /* separa la cápsula un poco del título */
 }
 
 .legend-item {
@@ -191,12 +195,12 @@
   position: relative;
   background: #ffffff;
   border-radius: 16px;
-  padding: 30px;
+  padding: 12px; /* original padding for daily cards */
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   border: 1px solid #f1f3f4;
   transition: box-shadow 0.3s ease;
   overflow: hidden;
-  min-width: 270px;
+  min-width: 270px; /* original minimum width */
 }
 
 .daily-card:hover {
@@ -353,11 +357,34 @@
     min-width: auto;
   }
   
+  /* Responsive: switch grid to single column and make cards full width */
+  .daily-summary-container {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
   .daily-card {
-    min-width: auto;
+    width: 100%;
+    min-width: 0;
   }
   
   .indicator-chart-individual {
     min-width: auto;
   }
 }
+
+/* Dashboard-specific card sizing to match HistorialSemana layout (2 columns, ~720px max container) */
+.dashboard-daily-card {
+  box-sizing: border-box;
+  width: 100%; /* fill the grid column */
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-daily-card {
+    width: 100%;
+  }
+}
+
+/* no HistorialDia-specific overrides: use .daily-card defaults so sizes match HistorialSemana */
