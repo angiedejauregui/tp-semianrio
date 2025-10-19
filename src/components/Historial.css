@@ -400,6 +400,84 @@
   color: #666;
 }
 
+/* Chart sizing for HistorialMes */
+.historial-charts {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.chart-card-compact {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border: 1px solid #eef2ff;
+  flex: 1 1 360px;
+  max-width: 48%;
+  min-width: 300px;
+}
+
+.chart-card-compact h5 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+@media (max-width: 900px) {
+  .chart-card-compact {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+
+/* Month summary (top cards) */
+.month-summary {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 0;
+}
+
+.month-stat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 18px 16px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+  border: 1px solid #e6eefb;
+  flex: 1 1 360px;
+  max-width: 48%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-stat-card .label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+
+.month-stat-card .value {
+  font-size: 28px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.month-stat-card .sub {
+  font-size: 12px;
+  color: #475569;
+  margin-top: 6px;
+}
+
+@media (max-width: 700px) {
+  .month-summary { flex-direction: column; }
+}
+
 .mes-stats span {
   display: flex;
   align-items: center;

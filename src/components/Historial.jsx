@@ -1,11 +1,11 @@
+import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import React, { useEffect, useState } from "react";
-import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
+import './Historial.css';
 import HistorialDia from './historial/HistorialDia';
-import HistorialSemana from './historial/HistorialSemana';
 import HistorialMes from './historial/HistorialMes';
 import HistorialSelectors from './historial/HistorialSelectors';
-import { formatearFechaCorta, formatearFechaCompleta, obtenerTodosLosDias, obtenerLimitesFechas } from './historial/historialUtils';
-import './Historial.css';
+import HistorialSemana from './historial/HistorialSemana';
+import { formatearFechaCompleta, formatearFechaCorta, obtenerLimitesFechas, obtenerTodosLosDias } from './historial/historialUtils';
 
 const Historial = () => {
   const [showSemanas, setShowSemanas] = useState(false);
@@ -39,7 +39,8 @@ const Historial = () => {
   const goalsByWeek = Array.isArray(historical.goalsByWeek)
     ? historical.goalsByWeek
     : [];
-  const tieneHistorial = historicalByWeek.length > 0 && goalsByWeek.length > 0;
+  // consider there is historial if we have week data; goals are optional
+  const tieneHistorial = historicalByWeek.length > 0;
 
   const semanaData =
     semanaSeleccionada !== null ? historicalByWeek[semanaSeleccionada] : null;
@@ -351,6 +352,8 @@ const Historial = () => {
               mesSeleccionado={mesSeleccionado}
               historicalByMonth={historicalByMonth}
               mesData={mesData}
+              goalsByWeek={goalsByWeek}
+              historicalByWeek={historicalByWeek}
               navegarMes={navegarMes}
             />
           )}
