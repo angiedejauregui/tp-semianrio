@@ -4,8 +4,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement);
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
-import { Phone, Handshake } from 'lucide-react'; 
-import React from 'react';
+import { Phone, Handshake, ChevronLeft, ChevronRight } from 'lucide-react'; 
+import React, { useState } from 'react';
 
 const getTooltipCallbacks = (labels, data, meta) => ({
   title: function(context) {
@@ -186,60 +186,12 @@ const HistorialSemana = ({
 
       {/* Tabla de la semana */}
 
-      {/* Días de la semana con cards */}
+      {/* Días de la semana con carousel de día */}
       <div className="semana-contenido">
-        {tablaSemana.map((d, idx) => {
-          const llamadasRealizadas = d.llamadas || 0;
-          const acuerdosLogrados = d.acuerdos || 0;
-          const llamadasContestadas = d.contestadas || 0;
-          const duracionPromedio = d.duracion || 0;
-          const duracionTotal = llamadasContestadas * duracionPromedio;
-          const efectividad = llamadasContestadas > 0 ? Math.round((acuerdosLogrados / llamadasContestadas) * 100) : 0;
-
-          return (
-            <div key={idx} className="dia-semana-section" style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h3 style={{ marginBottom: '16px', color: '#222', fontWeight: '700', fontSize: '18px' }}>{d.dia}</h3>
-              <div className="daily-summary-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', maxWidth: '720px' }}>
-                {/* Card de llamadas realizadas */}
-                <div className="daily-card">
-                  <div className="daily-card-header">
-                    <div className="daily-card-icon calls-icon">
-                      <Phone size={32} />
-                    </div>
-                    <div className="daily-card-badge">{formatearFechaCompleta(d.fecha)}</div>
-                  </div>
-                  <div className="daily-card-content">
-                    <div className="daily-card-number">{llamadasRealizadas}</div>
-                    <div className="daily-card-label">Llamadas realizadas</div>
-                  </div>
-                  <div className="daily-card-footer">
-                    <div className="daily-card-trend">
-                      Tiempo total: {duracionTotal} min
-                    </div>
-                  </div>
-                </div>
-                {/* Card de acuerdos logrados */}
-                <div className="daily-card">
-                  <div className="daily-card-header">
-                    <div className="daily-card-icon agreements-icon">
-                      <Handshake size={32} />
-                    </div>
-                    <div className="daily-card-badge">{formatearFechaCompleta(d.fecha)}</div>
-                  </div>
-                  <div className="daily-card-content">
-                    <div className="daily-card-number">{acuerdosLogrados}</div>
-                    <div className="daily-card-label">Acuerdos logrados</div>
-                  </div>
-                  <div className="daily-card-footer">
-                    <div className="daily-card-trend">
-                      Efectividad: {efectividad}%
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {/* Carousel: muestra un día a la vez, con navegación */}
+        {tablaSemana.length > 0 ? <WeekDayCarousel tablaSemana={tablaSemana} formatearFechaCompleta={formatearFechaCompleta} /> : (
+          <div style={{ textAlign: 'center', color: '#666' }}>No hay datos de días para esta semana.</div>
+        )}
       </div>
 
       <div className="indicators-dual-container">
@@ -359,3 +311,79 @@ const HistorialSemana = ({
 };
 
 export default HistorialSemana;
+
+/* Carousel component for showing one day's cards at a time */
+function WeekDayCarousel({ tablaSemana, formatearFechaCompleta }) {
+  const [current, setCurrent] = useState(() => {
+    if (!Array.isArray(tablaSemana)) return 0;
+    const idxLunes = tablaSemana.findIndex(d => (d.dia || '').toString().toLowerCase().includes('lun'));
+    return idxLunes >= 0 ? idxLunes : 0;
+  });
+
+  const prev = () => setCurrent((c) => (c - 1 + tablaSemana.length) % tablaSemana.length);
+  const next = () => setCurrent((c) => (c + 1) % tablaSemana.length);
+
+  const day = tablaSemana[current];
+
+  // derived metrics (match logic used elsewhere)
+  const llamadasRealizadas = day.llamadas || 0;
+  const acuerdosLogrados = day.acuerdos || 0;
+  const llamadasContestadas = day.contestadas || 0;
+  const duracionPromedio = day.duracion || 0;
+  const duracionTotal = llamadasContestadas * duracionPromedio;
+  const efectividad = llamadasContestadas > 0 ? Math.round((acuerdosLogrados / llamadasContestadas) * 100) : 0;
+
+  return (
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <button onClick={prev} aria-label="Anterior" style={navButtonStyle}><ChevronLeft size={18} /></button>
+        <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>{day.dia}</h3>
+        <button onClick={next} aria-label="Siguiente" style={navButtonStyle}><ChevronRight size={18} /></button>
+      </div>
+
+      <div className="daily-summary-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, maxWidth: 720, width: '100%', justifyContent: 'center' }}>
+        <div className="daily-card">
+          <div className="daily-card-header">
+            <div className="daily-card-icon calls-icon"><Phone size={32} /></div>
+            <div className="daily-card-badge">{formatearFechaCompleta(day.fecha)}</div>
+          </div>
+          <div className="daily-card-content">
+            <div className="daily-card-number">{llamadasRealizadas}</div>
+            <div className="daily-card-label">Llamadas realizadas</div>
+          </div>
+          <div className="daily-card-footer">
+            <div className="daily-card-trend">Tiempo total: {duracionTotal} min</div>
+          </div>
+        </div>
+
+        <div className="daily-card">
+          <div className="daily-card-header">
+            <div className="daily-card-icon agreements-icon"><Handshake size={32} /></div>
+            <div className="daily-card-badge">{formatearFechaCompleta(day.fecha)}</div>
+          </div>
+          <div className="daily-card-content">
+            <div className="daily-card-number">{acuerdosLogrados}</div>
+            <div className="daily-card-label">Acuerdos logrados</div>
+          </div>
+          <div className="daily-card-footer">
+            <div className="daily-card-trend">Efectividad: {efectividad}%</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+        {tablaSemana.map((_, i) => (
+          <button key={i} onClick={() => setCurrent(i)} aria-label={`Ir a ${i+1}`} style={{ width: 10, height: 10, borderRadius: 10, background: i === current ? '#1976d2' : '#e6eef9', border: 'none' }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const navButtonStyle = {
+  background: '#fff',
+  border: '1px solid #e6eef9',
+  padding: 8,
+  borderRadius: 8,
+  cursor: 'pointer'
+};
