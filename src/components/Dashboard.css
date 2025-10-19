@@ -139,7 +139,7 @@
 
 .legend-container {
   border-left: 3px solid #e2e8f0;
-  padding-left: 25px;
+  padding-left: 36px; /* separar del separador */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,6 +150,10 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.legend-container .chart-meta {
+  margin-left: 6px; /* separa la cápsula un poco del título */
 }
 
 .legend-item {

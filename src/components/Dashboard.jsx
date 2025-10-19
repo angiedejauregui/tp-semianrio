@@ -303,14 +303,12 @@ const Dashboard = () => {
             <div className="chart-wrapper-large">
               <Doughnut {...llamadasChart} />
             </div>
-            <div className="chart-info">
-              <h4 className="chart-title">Llamadas</h4>
-            </div>
           </div>
           
           {/* Leyenda individual para Llamadas */}
           <div className="legend-container">
-            <div className="chart-meta">Meta semanal: {weeklyCallsGoal}</div>
+            <h4 className="chart-title" style={{ margin: 0, marginBottom: 14 }}>Llamadas</h4>
+            <div className="chart-meta" style={{ marginBottom: 18 }}>Meta semanal: {weeklyCallsGoal}</div>
             <div className="legend-items">
               <div className="legend-item">
                 <div className="legend-color" style={{backgroundColor: '#5dade2'}}></div>
@@ -330,14 +328,12 @@ const Dashboard = () => {
             <div className="chart-wrapper-large">
               <Doughnut {...acuerdosChart} />
             </div>
-            <div className="chart-info">
-              <h4 className="chart-title">Acuerdos</h4>
-            </div>
           </div>
           
           {/* Leyenda individual para Acuerdos */}
           <div className="legend-container">
-            <div className="chart-meta">Meta semanal: {weeklyAgreementsGoal}</div>
+            <h4 className="chart-title" style={{ margin: 0, marginBottom: 14 }}>Acuerdos</h4>
+            <div className="chart-meta" style={{ marginBottom: 18 }}>Meta semanal: {weeklyAgreementsGoal}</div>
             <div className="legend-items">
               <div className="legend-item">
                 <div className="legend-color" style={{backgroundColor: '#2ecc71'}}></div>
