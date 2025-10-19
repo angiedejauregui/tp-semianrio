@@ -106,7 +106,8 @@ const HistorialMes = ({ mesSeleccionado, historicalByMonth = [], mesData: mesDat
       semanas = Array.from(map.values()).sort((a, b) => Number(a.semana) - Number(b.semana));
     }
 
-    const labels = semanas.map(s => `Semana ${s.semana}`);
+    const labels = semanas.map((s, idx) => `Semana ${idx + 1}`);
+
     const semanaNums = semanas.map(s => s.semana);
     const daysCountPerSemana = semanas.map(s => Array.isArray(s.dias) ? s.dias.length : ((historicalByWeek.find(w => w.semana === s.semana)?.dias?.length) || 5));
 
