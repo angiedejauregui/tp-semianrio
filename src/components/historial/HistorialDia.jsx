@@ -132,7 +132,7 @@ const HistorialDia = ({ datosVista, historical }) => {
           </div>
           {/* Título, leyenda y barrita al costado */}
           <div className="legend-container">
-            <h4 className="chart-title" style={{ color: '#5dade2', margin: 0, fontSize: '20px', fontWeight: '700' }}>
+            <h4 className="chart-title" style={{ color: '#222', margin: 0, fontSize: '20px', fontWeight: '700' }}>
               Meta de llamadas semanal
             </h4>
             <div className="chart-meta" style={{ margin: '12px 0 18px 0' }}>
@@ -174,7 +174,7 @@ const HistorialDia = ({ datosVista, historical }) => {
           </div>
           {/* Título, leyenda y barrita al costado */}
           <div className="legend-container">
-            <h4 className="chart-title" style={{ color: '#2ecc71', margin: 0, fontSize: '20px', fontWeight: '700' }}>
+            <h4 className="chart-title" style={{ color: '#222', margin: 0, fontSize: '20px', fontWeight: '700' }}>
               Meta de acuerdos semanal
             </h4>
             <div className="chart-meta" style={{ margin: '12px 0 18px 0' }}>
@@ -262,5 +262,4 @@ const HistorialDia = ({ datosVista, historical }) => {
     </div>
   );
 };
-
 export default HistorialDia;
