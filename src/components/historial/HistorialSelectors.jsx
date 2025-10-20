@@ -1,5 +1,4 @@
-import React from 'react';
-import { ChevronUp, ChevronDown, Phone, Handshake, Target } from 'lucide-react';
+import { ChevronDown, ChevronUp, Handshake, Phone, Target } from 'lucide-react';
 
 const HistorialSelectors = ({
   vistaActual,
@@ -101,7 +100,7 @@ const HistorialSelectors = ({
                   onClick={() => handleSemanaClick(idx, true)}
                 >
                   <div className="semana-info">
-                    <span className="semana-numero">Semana {semana.semana}</span>
+                    <span className="semana-numero">Semana 1</span>
                     <span className="semana-fechas">
                       {formatearFechaCorta(semana.dias[0]?.fecha)} - {formatearFechaCorta(semana.dias[semana.dias.length - 1]?.fecha)}
                     </span>
