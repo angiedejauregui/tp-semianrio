@@ -10,7 +10,9 @@
       { "semana": 2, "dailyCalls": 120, "dailyAgreements": 100 },
       { "semana": 3, "dailyCalls": 110, "dailyAgreements": 80 },
       { "semana": 4, "dailyCalls": 150, "dailyAgreements": 90 },
-      { "semana": 5, "dailyCalls": 140, "dailyAgreements": 85 }
+      { "semana": 5, "dailyCalls": 140, "dailyAgreements": 85 },      
+      { "semana": 6, "dailyCalls": 150, "dailyAgreements": 90 },
+      { "semana": 7, "dailyCalls": 140, "dailyAgreements": 85 }
     ],
 
     "historicalByMonth": [
@@ -44,11 +46,11 @@
           },
           {
             "semana": 4,
-            "llamadas": 150,
-            "acuerdos": 90,
-            "contestadas": 130,
-            "duracionPromedio": 22.5,
-            "cumpleMeta": true
+            "llamadas": 140,
+            "acuerdos": 82,
+            "contestadas": 118,
+            "duracionPromedio": 23.1,
+            "cumpleMeta": false
           },
           {
             "semana": 5,
@@ -57,6 +59,22 @@
             "contestadas": 115,
             "duracionPromedio": 21.8,
             "cumpleMeta": true
+          },
+          {
+            "semana": 6,
+            "llamadas": 152,
+            "acuerdos": 92,
+            "contestadas": 120,
+            "duracionPromedio": 22.0,
+            "cumpleMeta": true
+          },
+          {
+            "semana": 7,
+            "llamadas": 135,
+            "acuerdos": 78,
+            "contestadas": 100,
+            "duracionPromedio": 22.4,
+            "cumpleMeta": false
           }
         ]
       },
@@ -124,17 +142,17 @@
       },
       {
         "semana": 4,
-        "llamadas": 150,
-        "acuerdos": 90,
-        "contestadas": 130,
-        "duracionPromedio": 22.5,
-        "cumpleMeta": true,
+        "llamadas": 140,
+        "acuerdos": 82,
+        "contestadas": 118,
+        "duracionPromedio": 23.1,
+        "cumpleMeta": false,
         "dias": [
-          { "fecha": "2025-09-22", "dia": "Lunes", "llamadas": 28, "contestadas": 24, "acuerdos": 18, "duracion": 22.0, "cumpleMeta": true },
-          { "fecha": "2025-09-23", "dia": "Martes", "llamadas": 32, "contestadas": 28, "acuerdos": 19, "duracion": 23.0, "cumpleMeta": true },
-          { "fecha": "2025-09-24", "dia": "Miércoles", "llamadas": 30, "contestadas": 26, "acuerdos": 18, "duracion": 22.5, "cumpleMeta": true },
-          { "fecha": "2025-09-25", "dia": "Jueves", "llamadas": 30, "contestadas": 26, "acuerdos": 17, "duracion": 23.2, "cumpleMeta": true },
-          { "fecha": "2025-09-26", "dia": "Viernes", "llamadas": 30, "contestadas": 26, "acuerdos": 18, "duracion": 22.5, "cumpleMeta": true }
+          { "fecha": "2025-09-22", "dia": "Lunes", "llamadas": 26, "contestadas": 21, "acuerdos": 15, "duracion": 23.5, "cumpleMeta": false },
+          { "fecha": "2025-09-23", "dia": "Martes", "llamadas": 28, "contestadas": 22, "acuerdos": 16, "duracion": 23.0, "cumpleMeta": false },
+          { "fecha": "2025-09-24", "dia": "Miércoles", "llamadas": 29, "contestadas": 24, "acuerdos": 17, "duracion": 22.8, "cumpleMeta": false },
+          { "fecha": "2025-09-25", "dia": "Jueves", "llamadas": 28, "contestadas": 25, "acuerdos": 16, "duracion": 23.2, "cumpleMeta": false },
+          { "fecha": "2025-09-26", "dia": "Viernes", "llamadas": 29, "contestadas": 26, "acuerdos": 18, "duracion": 22.9, "cumpleMeta": false }
         ]
       },
       {
@@ -150,6 +168,36 @@
           { "fecha": "2025-10-01", "dia": "Miércoles", "llamadas": 30, "contestadas": 25, "acuerdos": 18, "duracion": 22.2, "cumpleMeta": true },
           { "fecha": "2025-10-02", "dia": "Jueves", "llamadas": 32, "contestadas": 26, "acuerdos": 20, "duracion": 21.8, "cumpleMeta": true },
           { "fecha": "2025-10-03", "dia": "Viernes", "llamadas": 30, "contestadas": 22, "acuerdos": 18, "duracion": 21.5, "cumpleMeta": true }
+        ]
+      },
+      {
+        "semana": 6,
+        "llamadas": 152,
+        "acuerdos": 92,
+        "contestadas": 120,
+        "duracionPromedio": 22.0,
+        "cumpleMeta": true,
+        "dias": [
+          { "fecha": "2025-10-06", "dia": "Lunes", "llamadas": 30, "contestadas": 25, "acuerdos": 18, "duracion": 21.8, "cumpleMeta": true },
+          { "fecha": "2025-10-07", "dia": "Martes", "llamadas": 32, "contestadas": 26, "acuerdos": 19, "duracion": 22.3, "cumpleMeta": true },
+          { "fecha": "2025-10-08", "dia": "Miércoles", "llamadas": 28, "contestadas": 22, "acuerdos": 17, "duracion": 21.9, "cumpleMeta": true },
+          { "fecha": "2025-10-09", "dia": "Jueves", "llamadas": 31, "contestadas": 24, "acuerdos": 19, "duracion": 22.5, "cumpleMeta": true },
+          { "fecha": "2025-10-10", "dia": "Viernes", "llamadas": 31, "contestadas": 23, "acuerdos": 19, "duracion": 21.7, "cumpleMeta": true }
+        ]
+      },
+      {
+        "semana": 7,
+        "llamadas": 135,
+        "acuerdos": 78,
+        "contestadas": 100,
+        "duracionPromedio": 22.4,
+        "cumpleMeta": false,
+        "dias": [
+          { "fecha": "2025-10-13", "dia": "Lunes", "llamadas": 25, "contestadas": 19, "acuerdos": 12, "duracion": 22.8, "cumpleMeta": false },
+          { "fecha": "2025-10-14", "dia": "Martes", "llamadas": 28, "contestadas": 22, "acuerdos": 15, "duracion": 23.0, "cumpleMeta": false },
+          { "fecha": "2025-10-15", "dia": "Miércoles", "llamadas": 27, "contestadas": 21, "acuerdos": 14, "duracion": 22.5, "cumpleMeta": false },
+          { "fecha": "2025-10-16", "dia": "Jueves", "llamadas": 28, "contestadas": 20, "acuerdos": 18, "duracion": 22.3, "cumpleMeta": true },
+          { "fecha": "2025-10-17", "dia": "Viernes", "llamadas": 27, "contestadas": 18, "acuerdos": 19, "duracion": 21.5, "cumpleMeta": true }
         ]
       }
     ]
