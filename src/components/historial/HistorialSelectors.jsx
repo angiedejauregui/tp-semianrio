@@ -100,7 +100,7 @@ const HistorialSelectors = ({
                   onClick={() => handleSemanaClick(idx, true)}
                 >
                   <div className="semana-info">
-                    <span className="semana-numero">Semana 1</span>
+                    <span className="semana-numero">Semana {idx + 1}</span>
                     <span className="semana-fechas">
                       {formatearFechaCorta(semana.dias[0]?.fecha)} - {formatearFechaCorta(semana.dias[semana.dias.length - 1]?.fecha)}
                     </span>
