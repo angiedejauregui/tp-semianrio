@@ -1,11 +1,9 @@
-import { Bar } from 'react-chartjs-2'; // Agrega arriba con los imports
-import { CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Tooltip } from 'chart.js';
+import { ChevronLeft, ChevronRight, Handshake, Phone } from 'lucide-react';
+import { useState } from 'react';
+import { Bar, Pie } from 'react-chartjs-2'; // Agrega arriba con los imports
 ChartJS.register(CategoryScale, LinearScale, BarElement);
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
-import { Phone, Handshake, ChevronLeft, ChevronRight } from 'lucide-react'; 
-import React, { useState } from 'react';
 
 const getTooltipCallbacks = (labels, data, meta) => ({
   title: function(context) {
