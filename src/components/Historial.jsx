@@ -249,7 +249,19 @@ const Historial = () => {
                 >
                   <ChevronLeft size={18} />
                 </button>
-                <span>Semana {semanaData.semana} ({formatearFechaCorta(semanaData.dias[0]?.fecha)} - {formatearFechaCorta(semanaData.dias[semanaData.dias.length - 1]?.fecha)})</span>
+
+                {/* Fragmento cambiado para el mes de octubre */}
+                <span>
+  Semana {
+    (() => {
+      const semanaDelMesIndex = semanasFiltradas.findIndex(s =>
+        s.semana === semanaData?.semana
+      );
+      return semanaDelMesIndex !== -1 ? semanaDelMesIndex + 1 : semanaData?.semana;
+    })()
+  } ({formatearFechaCorta(semanaData.dias[0]?.fecha)} - {formatearFechaCorta(semanaData.dias.at(-1)?.fecha)})
+</span>
+
                 <button 
                   className="nav-button" 
                   onClick={() => navegarSemana(1)}
